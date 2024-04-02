@@ -1,0 +1,151 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --primary-color: #f8f7f6;
+  --secondary-color: #19263f;
+  --background-color: #1c2e50;
+  --temporary-color: #14133b;
+}
+
+.s-container {
+  background-color: #1c2e50;
+  height: 90%;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.s-box {
+  display: flex;
+  width: 80vw;
+  height: 70vh;
+  border-radius: 6px;
+  box-shadow: 2px 3px 17px 1px;
+}
+
+.login-container {
+  width: 50%;
+  height: 100%;
+  background-color: var(--primary-color);
+  display: flex;
+  padding: 4%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  color: var(--secondary-color);
+  border-radius: 0 6px 6px 0;
+}
+.button-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+.box-container {
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  width: 100%;
+}
+.login-btn {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  text-align: center;
+  width: 100%;
+  padding: 3%;
+}
+.btn {
+  cursor: pointer;
+}
+.s-btn,
+.t-btn {
+  cursor: pointer;
+  font-size: 3vh;
+  padding: 1vh 1vw;
+  border: 1px solid rgb(240, 227, 227);
+}
+.s-btn {
+  border-top-left-radius: 1vh;
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+}
+.t-btn {
+  border-top-right-radius: 1vh;
+}
+.login-heading {
+  color: var(--secondary-color);
+  width: 100%;
+  text-align: center;
+  font-size: 4vh;
+}
+.inputs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.input,
+#username,
+#password {
+  width: 100%;
+}
+#username,
+#password {
+  font-size: 3vh;
+  padding: 1vh 1vw;
+}
+#username {
+  margin-top: 0;
+  margin-bottom: 2vh;
+}
+#password {
+  margin: 2vh 0;
+}
+.buttons {
+  display: flex;
+  align-items: flex-start;
+}
+.lower-box {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.render-Studentbox,
+.render-Teacherbox {
+  flex-grow: 1;
+}
+.buttons {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+}
+.btn {
+  cursor: pointer;
+}
+.s-btn,
+.t-btn {
+  cursor: pointer;
+  font-size: 3vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
+}
+.s-btn {
+  border-top-left-radius: 1vh;
+}
+.t-btn {
+  border-top-right-radius: 1vh;
+}
+.login-heading {
+  color: var(--secondary-color);
+  width: 100%;
+  text-align: center;
+}
+.login-icon {
+  display: none;
+}

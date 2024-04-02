@@ -1,0 +1,30 @@
+:root {
+  --poppins: "Poppins", sans-serif;
+  --lato: "Lato", sans-serif;
+
+  --light: #f9f9f9;
+  --blue: #3c91e6;
+  --light-blue: #cfe8ff;
+  --grey: #eee;
+  --dark-grey: #aaaaaa;
+  --dark: #342e37;
+  --red: #db504a;
+  --yellow: #ffce26;
+  --light-yellow: #fff2c6;
+  --orange: #fd7238;
+  --light-orange: #ffe0d3;
+}
+.teacherdashboard {
+  background: var(--grey);
+  height: 90vh;
+  padding: 2vh 2vw;
+  display: flex;
+}
+@media (width <= 860px) {
+  .navheading {
+    display: none;
+  }
+  .sidenav-logo {
+    margin-right: 0;
+  }
+}

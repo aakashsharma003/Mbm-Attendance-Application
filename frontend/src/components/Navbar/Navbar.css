@@ -1,0 +1,46 @@
+:root {
+  --primary-color: #f8f7f6;
+  --secondary-color: #19263f;
+  --background-color: #1c2e50;
+  --temporary-color: #14133b;
+}
+.nav-container {
+  /* /* width: 100vw; */
+  height: 10vh;
+  padding: 0.8vh 0.4vw;
+  display: flex;
+  /* background-color: var(--secondary-color); */
+  background-image: linear-gradient(
+    135deg,
+    var(--secondary-color),
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  justify-content: space-between;
+  align-items: center;
+  padding: 2vh 2vw;
+  color: var(--primary-color);
+}
+
+.logo-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 4vh;
+}
+.nav-logo-icon {
+  width: 100%;
+  height: 100%;
+}
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3%;
+  height: 80%;
+  cursor: pointer;
+}
+ul {
+  list-style-type: none;
+}

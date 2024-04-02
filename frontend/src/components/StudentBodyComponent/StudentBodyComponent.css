@@ -1,0 +1,70 @@
+:root {
+  --poppins: "Poppins", sans-serif;
+  --lato: "Lato", sans-serif;
+
+  --light: #f9f9f9;
+  --blue: #3c91e6;
+  --light-blue: #cfe8ff;
+  --grey: #eee;
+  --dark-grey: #aaaaaa;
+  --dark: #342e37;
+  --red: #db504a;
+  --yellow: #ffce26;
+  --light-yellow: #fff2c6;
+  --orange: #fd7238;
+  --light-orange: #ffe0d3;
+}
+.studentbodycontainer {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: white;
+  margin: 0 0 0 1vw;
+  border-radius: 10px;
+  box-shadow: -1px 1px 11px 4px lightgray;
+}
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  padding: 2%;
+  background: var(--grey);
+}
+.dash-heading,
+.attend-heading {
+  font-size: 5vh;
+}
+.attendence {
+  padding: 2%;
+}
+.attendsub-heading {
+  color: var(--dark-grey);
+}
+.s-dash-image {
+  margin: 2%;
+  height: 90%;
+  width: 100%;
+}
+.s-dash-btn {
+  width: 27%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2%;
+  border-radius: 6px;
+  box-shadow: -1px 1px 11px 4px lightgray;
+}
+.input-btn {
+  width: 50vw;
+  height: 53vh;
+  font-size: 2;
+  margin: 3% 5% 5% 0%;
+}
+.s-dash-uploadedimage {
+  box-shadow: -1px 1px 11px 4px lightgray;
+  border-radius: 12px;
+}
