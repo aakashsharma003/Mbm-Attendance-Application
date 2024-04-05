@@ -1,4 +1,16 @@
-export const InputBox = ({ label, placeholder, type, onChange, required }) => {
+import "./InputBox.css";
+export const InputBox = ({
+  label,
+  placeholder,
+  type,
+  onChange,
+  required,
+  defaultValue,
+  disabled,
+  bgcolor,
+  color,
+  margin,
+}) => {
   return (
     <div style={{ width: "100%" }}>
       <input
@@ -8,15 +20,12 @@ export const InputBox = ({ label, placeholder, type, onChange, required }) => {
         id={label}
         placeholder={placeholder}
         required={required}
+        defaultValue={defaultValue}
+        disabled={disabled}
         style={{
-          display: "flex",
-          padding: "2dvh 2dvw",
-          width: "100%",
-          fontWeight: "300",
-          fontSize: "4vh",
-          flexDirection: "column",
-          border: "1px solid gray",
-          borderRadius: "8px",
+          background: `${bgcolor}`,
+          color: `${color}`,
+          margin: `${margin}`,
         }}
       />
     </div>

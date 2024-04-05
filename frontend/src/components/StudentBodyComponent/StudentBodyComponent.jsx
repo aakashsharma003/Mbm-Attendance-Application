@@ -4,7 +4,7 @@ import { Profile } from "../Profile/Profile";
 import toast from "react-hot-toast";
 import DefaultProfile from "/DefaultProfile.jpg";
 import Cards from "../Cards/Cards";
-const StudentBodyComponent = ({ dashboard, attendence }) => {
+const StudentBodyComponent = ({ dashboard, attendence, student }) => {
   return (
     <div className="studentbodycontainer">
       {dashboard && (
@@ -23,6 +23,18 @@ const StudentBodyComponent = ({ dashboard, attendence }) => {
             <div className="attendence">
               <div className="attend-heading">Attendence</div>
               <div className="attendsub-heading">Attendence</div>
+              <Cards />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {student && (
+        <div className="attendence-Container">
+          <div className="attendence">
+            <div className="attendence">
+              <div className="attend-heading">Subjects</div>
+              <div className="attendsub-heading">Subjects</div>
               <Cards />
             </div>
           </div>

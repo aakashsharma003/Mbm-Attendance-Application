@@ -6,10 +6,19 @@ import { useState } from "react";
 const TeacherDashboard = () => {
   const [attendence, setAttendence] = useState(false);
   const [dashboard, setDashboard] = useState(true);
+  const [subjects, setSubjects] = useState(false);
   return (
     <div className="teacherdashboard">
-      <SideNav setAttendence={setAttendence} setDashboard={setDashboard} />
-      <TeacherBodycomponent dashboard={dashboard} attendence={attendence} />
+      <SideNav
+        setAttendence={setAttendence}
+        setDashboard={setDashboard}
+        setSubjects={setSubjects}
+      />
+      <TeacherBodycomponent
+        dashboard={dashboard}
+        attendence={attendence}
+        subjects={subjects}
+      />
     </div>
   );
 };

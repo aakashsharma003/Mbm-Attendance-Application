@@ -1,0 +1,10 @@
+input {
+  display: flex;
+  padding: 2vh 2vw;
+  width: 100%;
+  font-weight: 300;
+  font-size: 4vh;
+  flex-direction: column;
+  border: 1px solid gray;
+  border-radius: 8px;
+}

@@ -2,9 +2,10 @@ import React from "react";
 import Dashboard_logo from "../../assets/dashboard-logo.png";
 import Attendence_logo from "../../assets/attendence-logo.png";
 import log_out from "../../assets/logout.png";
+import subjects_logo from "/subjecticon.png";
 import { NavLink } from "react-router-dom";
 import "./SideNav.css";
-const SideNav = ({ setAttendence, setDashboard }) => {
+const SideNav = ({ setAttendence, setDashboard, setSubjects }) => {
   return (
     <>
       <div className="sideNav">
@@ -14,6 +15,7 @@ const SideNav = ({ setAttendence, setDashboard }) => {
             onClick={() => {
               setDashboard(true);
               setAttendence(false);
+              setSubjects(false);
             }}
           >
             <img
@@ -28,6 +30,7 @@ const SideNav = ({ setAttendence, setDashboard }) => {
             onClick={() => {
               setAttendence(true);
               setDashboard(false);
+              setSubjects(false);
             }}
           >
             <img
@@ -36,6 +39,21 @@ const SideNav = ({ setAttendence, setDashboard }) => {
               className="sidenav-logo"
             />
             <li className="navheading text-decoration-none">Attendence</li>
+          </div>
+          <div
+            className="sideNav-items"
+            onClick={() => {
+              setSubjects(true);
+              setDashboard(false);
+              setAttendence(false);
+            }}
+          >
+            <img
+              src={subjects_logo}
+              alt="subjectslogo"
+              className="sidenav-logo"
+            />
+            <li className="navheading text-decoration-none">Subjects</li>
           </div>
           <NavLink to="/login" className="sideNav-items">
             <img
