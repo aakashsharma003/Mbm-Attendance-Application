@@ -27,55 +27,30 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-}
-
-.inputs {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.input,
-#username,
-#password {
-  width: 100%;
-}
-#username,
-#password {
-  font-size: 3vh;
-  padding: 1vh 1vw;
-  border: 1px solid grey;
-}
-#username {
-  margin-top: 0;
-  margin-bottom: 2vh;
-}
-#password {
-  margin: 2vh 0;
 }
 
 .lower-box {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
 }
 .login-btn {
+  padding: 2dvw 2dvh;
+  font-size: 2vh;
   border: 1px solid var(--temporary-color);
   text-decoration: none;
   transition: all;
+  width: 100%;
 }
 .login-btn:hover {
   background: rgb(28, 46, 80);
   transition: background 1s ease-in-out;
 }
 input:focus,
-select:focus,
-textarea:focus,
 button:focus {
   outline: none;
 }
+
 .login-btn,
 input {
   border-radius: 6px;

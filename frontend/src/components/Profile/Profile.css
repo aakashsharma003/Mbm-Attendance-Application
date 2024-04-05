@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --poppins: "Poppins", sans-serif;
+  --lato: "Lato", sans-serif;
+
+  --light: #f9f9f9;
+  --blue: #3c91e6;
+  --light-blue: #cfe8ff;
+  --grey: #eee;
+  --dark-grey: #aaaaaa;
+  --dark: #342e37;
+  --red: #db504a;
+  --yellow: #ffce26;
+  --light-yellow: #fff2c6;
+  --orange: #fd7238;
+  --light-orange: #ffe0d3;
+}
+
+.profile-box {
+  /* border: 2px solid #cfe8ff; */
+  width: 60%;
+  height: 80%;
+}
+.profile-headings {
+  padding: 2%;
+  width: 100%;
+  font-size: 4vh;
+  font: bold;
+  font-weight: 500;
+  display: flex;
+}
+.p-heading {
+  margin: 2%;
+}
+.val {
+  color: var(--dark);
+}
+.flex {
+  display: flex;
+  align-items: center;
+}

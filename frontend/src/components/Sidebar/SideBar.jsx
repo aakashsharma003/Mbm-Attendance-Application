@@ -10,9 +10,12 @@ const SideBar = () => {
           <img className="sidebar-logo-icon" src={Logo_icon} alt="" />
         </div>
         <div className="heading">
-          <div className="first-heading">
+          <div className="first-heading" style={{ letterSpacing: "3px" }}>
             <pre>
-              <span style={{ color: "#cc0c1e" }}>M.B.M</span> UNIVERSITY
+              <span style={{ color: "#cc0c1e", letterSpacing: "5px" }}>
+                MBM
+              </span>{" "}
+              UNIVERSITY
             </pre>
           </div>
           <div className="second-heading">

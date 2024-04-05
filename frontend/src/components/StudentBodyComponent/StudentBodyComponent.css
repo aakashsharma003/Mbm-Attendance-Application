@@ -30,7 +30,7 @@
   align-items: flex-start;
   width: 100%;
   height: 100%;
-  padding: 2%;
+  padding: 1%;
   background: var(--grey);
 }
 .dash-heading,
@@ -44,27 +44,30 @@
   color: var(--dark-grey);
 }
 .s-dash-image {
-  margin: 2%;
-  height: 90%;
-  width: 100%;
+  margin: 1%;
+  height: 79%;
+  width: 98%;
 }
 .s-dash-btn {
-  width: 27%;
+  width: 100%;
   background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2%;
+  padding: 3%;
   border-radius: 6px;
   box-shadow: -1px 1px 11px 4px lightgray;
 }
 .input-btn {
-  width: 50vw;
-  height: 53vh;
-  font-size: 2;
-  margin: 3% 5% 5% 0%;
+  width: 50%;
+  height: 90%;
 }
 .s-dash-uploadedimage {
   box-shadow: -1px 1px 11px 4px lightgray;
   border-radius: 12px;
+}
+.content {
+  display: flex;
+  width: 100%;
+  height: 85%;
 }

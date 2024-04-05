@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import "./StudentBodyComponent.css";
-
+import { Profile } from "../Profile/Profile";
+import toast from "react-hot-toast";
+import DefaultProfile from "/DefaultProfile.jpg";
+import Cards from "../Cards/Cards";
 const StudentBodyComponent = ({ dashboard, attendence }) => {
   return (
     <div className="studentbodycontainer">
       {dashboard && (
         <div className="dashboard">
-          <div className="dashboard">
-            <div className="dash-heading">Dashboard</div>
-            <div className="dashsub-heading">dashboard</div>
+          <div className="dash-heading">Dashboard</div>
+          <div className="dashsub-heading">dashboard</div>
+          <div className="content">
             <RenderImage />
+            <Profile />
           </div>
         </div>
       )}
@@ -19,6 +23,7 @@ const StudentBodyComponent = ({ dashboard, attendence }) => {
             <div className="attendence">
               <div className="attend-heading">Attendence</div>
               <div className="attendsub-heading">Attendence</div>
+              <Cards />
             </div>
           </div>
         </div>
@@ -26,9 +31,8 @@ const StudentBodyComponent = ({ dashboard, attendence }) => {
     </div>
   );
 };
-
 function RenderImage() {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(DefaultProfile); // Initialize with the default image
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -36,9 +40,10 @@ function RenderImage() {
     if (file && (file.type === "image/jpeg" || file.type === "image/jpg")) {
       // Process the selected image (e.g., display it, upload it, etc.)
       setSelectedImage(URL.createObjectURL(file));
+      toast.success("photo uploaded successfully.!");
     } else {
       // Display an error message or handle invalid file types
-      alert("Please select a valid JPG or JPEG image file.");
+      toast.error("Please select a valid JPG or JPEG image file.");
     }
   };
 
@@ -51,18 +56,18 @@ function RenderImage() {
         accept=".jpg, .jpeg"
         onChange={handleImageChange}
       />
-      <label for="img" className="s-dash-btn">
-        Upload image
-      </label>
+
       {selectedImage && (
         <div className="s-dash-image">
-          <p className="s-dash-para">Image uploaded Successfully.</p>
           <img
             src={selectedImage}
             alt="Selected"
-            style={{ Width: "100%", height: "100%" }}
+            style={{ Width: "100%" }}
             className="s-dash-uploadedimage"
           />
+          <label htmlFor="img" className="s-dash-btn">
+            Upload image
+          </label>
         </div>
       )}
     </div>
