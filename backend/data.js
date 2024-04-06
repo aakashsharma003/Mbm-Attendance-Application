@@ -312,3 +312,30 @@ export const data = [
     year: 3,
   },
 ];
+
+export const TeacherData = [
+  {
+    name: "Abhishek Gour",
+    teacherId: "1001",
+    password: "Abhishek@1001",
+    department: "Computer Science",
+  },
+  {
+    name: "Anil Gupta",
+    teacherId: "1002",
+    password: "Anil@1002",
+    department: "Computer Science",
+  },
+  {
+    name: "N.C Barwar",
+    teacherId: "1003",
+    password: "NC@1003",
+    department: "Computer Science",
+  },
+  {
+    name: "Simran Choudary",
+    teacherId: "1004",
+    password: "Simran@1004",
+    department: "Computer Science",
+  },
+];

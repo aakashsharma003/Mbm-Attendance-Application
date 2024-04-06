@@ -40,7 +40,7 @@ const StudentUser = () => {
         />
 
         <InputBox
-          label="password"
+          label="Password"
           placeholder="Password"
           type="password"
           value={password}

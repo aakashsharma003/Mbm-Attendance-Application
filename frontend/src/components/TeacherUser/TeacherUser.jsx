@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./TeacherUser.css";
 import { useNavigate } from "react-router-dom";
 import { InputBox } from "../InputBox/InputBox";
@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { server } from "../../main";
 const TeacherUser = () => {
-  const [email, setEmail] = useState("");
+  const [teacherId, setTeacherId] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const TeacherUser = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `${server}/teacher?email=${email}&password=${password}`
+        `${server}/teacher?teacherid=${teacherId}&password=${password}`
       );
       toast.success(response.data.message);
       navigate("/teacher/dashboard", {
@@ -35,17 +35,17 @@ const TeacherUser = () => {
           placeholder="Email"
           type="text"
           onChange={(e) => {
-            setEmail(e);
+            setTeacherId(e.target.value);
           }}
           required={"required"}
         />
 
         <InputBox
-          label="password"
+          label="Password"
           placeholder="Password"
           type="password"
           onChange={(e) => {
-            setPassword(e);
+            setPassword(e.target.value);
           }}
           required={"required"}
         />

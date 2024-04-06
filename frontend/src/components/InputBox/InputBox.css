@@ -1,10 +1,16 @@
 input {
   display: flex;
-  padding: 2vh 2vw;
+  padding: 2dvh 2dvw;
   width: 100%;
   font-weight: 300;
   font-size: 4vh;
   flex-direction: column;
   border: 1px solid gray;
   border-radius: 8px;
+}
+@media (width <= 860px) {
+  input {
+    font-size: 2vh;
+    padding: 1dvh 1dvw;
+  }
 }

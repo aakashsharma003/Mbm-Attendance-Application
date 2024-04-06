@@ -1,0 +1,23 @@
+.s-dash-image {
+  margin: 1%;
+  height: 79%;
+  width: 98%;
+}
+.s-dash-btn {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3%;
+  border-radius: 6px;
+  box-shadow: -1px 1px 11px 4px lightgray;
+}
+.input-btn {
+  width: 50%;
+  height: 90%;
+}
+.s-dash-uploadedimage {
+  box-shadow: -1px 1px 11px 4px lightgray;
+  border-radius: 12px;
+}

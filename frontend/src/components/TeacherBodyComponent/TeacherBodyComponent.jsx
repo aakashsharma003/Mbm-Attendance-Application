@@ -1,21 +1,48 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./TeacherBodyComponent.css";
 import Attendence from "../Attendence/Attendence.jsx";
-import DashBoard from "../DashBoard/DashBoard.jsx";
 import { InputBox } from "../InputBox/InputBox.jsx";
-
+import { useLocation } from "react-router-dom";
+import { Profile } from "../Profile/Profile.jsx";
+import axios from "axios";
+import { server } from "../../main";
+import toast from "react-hot-toast";
+import { RenderImage } from "../RenderImage/RenderImage.jsx";
 const TeacherBodyComponent = ({ dashboard, attendence, subjects }) => {
-  const TeacherName = "Abhishek Gour";
-  const [subjectName, setSubjectName] = useState("");
+  const location = useLocation();
+  const [subjectname, setSubjectName] = useState("");
   const [subjectcode, setSubjectCode] = useState("");
   const [semester, setSemester] = useState("");
   const [branch, setBranch] = useState("");
   const [year, SetYear] = useState("");
+  const allotedTeacher = location.state.data.name;
+  const submithandler = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${server}/teacher/createnewsubject`, {
+        subjectname,
+        subjectcode,
+        semester,
+        branch,
+        year,
+        allotedTeacher,
+      });
+      toast.success(response.data.message);
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response.data.message);
+    }
+  };
   return (
     <div className="teacherbodycontainer">
       {dashboard && (
         <div className="dashboard">
-          <DashBoard />
+          <div className="dash-heading">Dashboard</div>
+          <div className="dashsub-heading">dashboard</div>
+          <div className="content">
+            <RenderImage />
+            <Profile />
+          </div>
         </div>
       )}
       {attendence && (
@@ -25,7 +52,7 @@ const TeacherBodyComponent = ({ dashboard, attendence, subjects }) => {
       )}
       {subjects && (
         <div className="attendence-Container">
-          <div className="attendence">
+          <form className="attendence" onSubmit={submithandler}>
             <div className="attend-heading">Subject</div>
             <div className="attendsub-heading">Subject</div>
             <div className="flex" style={{ alignItems: "flex-start" }}>
@@ -81,6 +108,9 @@ const TeacherBodyComponent = ({ dashboard, attendence, subjects }) => {
               </div>
               <div className="flex flex-col" style={{ marginLeft: "5%" }}>
                 <InputBox
+                  onChange={(e) => {
+                    SetYear(e.target.value);
+                  }}
                   type={"text"}
                   name={"year"}
                   id={"year"}
@@ -93,7 +123,7 @@ const TeacherBodyComponent = ({ dashboard, attendence, subjects }) => {
                   name={"allotedteacher"}
                   id={"allotedteacher"}
                   placeholder={"allotedteacher"}
-                  defaultValue={TeacherName}
+                  defaultValue={allotedTeacher}
                   disabled={"disabled"}
                   bgcolor={"white"}
                   color="black"
@@ -119,7 +149,7 @@ const TeacherBodyComponent = ({ dashboard, attendence, subjects }) => {
             >
               Create Subject
             </button>
-          </div>
+          </form>
         </div>
       )}
     </div>

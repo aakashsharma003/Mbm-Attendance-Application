@@ -15,7 +15,9 @@ const Cards = () => {
         <div className="card-image">
           <img src={notattended} alt="attend-icon" />
         </div>
-        <div className="card-subheading">not attended</div>
+        <div className="card-subheading" style={{ color: "#e21b1b" }}>
+          not attended
+        </div>
       </div>
     </div>
   );

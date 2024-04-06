@@ -1,13 +1,9 @@
 import React from "react";
 import { images } from "../../Constants";
 import "./DashBoard.css";
+import { Profile } from "../Profile/Profile";
 const DashBoard = () => {
-  return (
-    <div className="dashboard">
-      <div className="dash-heading">Dashboard</div>
-      <div className="dashsub-heading">dashboard</div>
-    </div>
-  );
+  return <div className="dashboard"></div>;
 };
 
 function Box(props) {

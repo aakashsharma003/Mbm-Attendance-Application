@@ -41,12 +41,9 @@
   border: 2px solid #e21b1b;
 }
 .card-image {
-  width: 10%;
-  height: 100%;
-}
-.card-image {
-  width: 100px;
-  padding: 5%;
+  width: 6dvw;
+  height: 10dvh;
+  padding: 7%;
 }
 .card-subheading {
   color: #00ba00;
@@ -61,4 +58,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@media (width <= 860px) {
+  .card {
+    width: 100%;
+    height: 31dvh;
+    padding: 6%;
+  }
+  .card-image {
+    width: 23dvw;
+    height: 10dvh;
+    padding: 8%;
+  }
 }
