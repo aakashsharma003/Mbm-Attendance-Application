@@ -27,50 +27,50 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-connectToDatabase()
-  .then(() => {
-    console.log("Connected to Database");
-  })
-  .catch((err) => {
-    console.error("Error while connecting to database:", err);
-  });
+// connectToDatabase()
+//   .then(() => {
+//     console.log("Connected to Database");
+//   })
+//   .catch((err) => {
+//     console.error("Error while connecting to database:", err);
+//   });
 
-createStudentTable()
-  .then(() => {
-    console.log("Table created successfully");
-    // Call insertData function after creating the table
-    return insertData();
-  })
-  .then(() => {
-    console.log("All data inserted successfully.");
-  })
-  .catch((err) => {
-    console.error("Error while creating student table or inserting data:", err);
-  });
+// createStudentTable()
+//   .then(() => {
+//     console.log("Table created successfully");
+//     // Call insertData function after creating the table
+//     return insertData();
+//   })
+//   .then(() => {
+//     console.log("All data inserted successfully.");
+//   })
+//   .catch((err) => {
+//     console.error("Error while creating student table or inserting data:", err);
+//   });
 
-createTeacherTable()
-  .then(() => {
-    console.log("Table created successfully");
-    // Call insertData function after creating the table
-    return insertTeacherData()
-      .then(() => {
-        console.log("All data inserted successfully.");
-      })
-      .catch((err) => {
-        console.error("Error while inserting data in teacher table ", err);
-      });
-  })
-  .catch((err) => {
-    console.error("Error while creating teacher table ", err);
-  });
+// createTeacherTable()
+//   .then(() => {
+//     console.log("Table created successfully");
+//     // Call insertData function after creating the table
+//     return insertTeacherData()
+//       .then(() => {
+//         console.log("All data inserted successfully.");
+//       })
+//       .catch((err) => {
+//         console.error("Error while inserting data in teacher table ", err);
+//       });
+//   })
+//   .catch((err) => {
+//     console.error("Error while creating teacher table ", err);
+//   });
 
-createSubjectTable()
-  .then((res) => {
-    console.log("subject table created successfully.!");
-  })
-  .catch((err) => {
-    console.error("Error while creating subject table", err);
-  });
+// createSubjectTable()
+//   .then((res) => {
+//     console.log("subject table created successfully.!");
+//   })
+//   .catch((err) => {
+//     console.error("Error while creating subject table", err);
+//   });
 // default option
 // app.use(fileUpload());
 // app.post("/", (req, res) => {
