@@ -1,5 +1,9 @@
 {
   "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "npx nodemon index.js"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
