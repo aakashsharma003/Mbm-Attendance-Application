@@ -36,6 +36,9 @@
   }
   .content {
     flex-direction: column;
+    padding: 5%;
+    overflow: scroll;
+    overflow-x: hidden;
   }
   .input-btn {
     width: 100%;
