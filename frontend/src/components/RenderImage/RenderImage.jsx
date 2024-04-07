@@ -18,7 +18,7 @@ export const RenderImage = () => {
   };
 
   return (
-    <div className="input-btn">
+    <form className="input-btn">
       <input
         type="file"
         id="img"
@@ -40,6 +40,6 @@ export const RenderImage = () => {
           </label>
         </div>
       )}
-    </div>
+    </form>
   );
 };

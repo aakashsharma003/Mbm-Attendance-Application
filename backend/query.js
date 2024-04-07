@@ -4,10 +4,10 @@ import mysql from "mysql2/promise";
 import "dotenv/config";
 import { data } from "./data.js";
 import { TeacherData } from "./data.js";
-const localhost = process.env.DB_HOST;
-const db_user = process.env.DB_USERNAME;
-const db_password = process.env.DB_PASSWORD;
-const db_name = process.env.DB_DBNAME;
+// const localhost = process.env.DB_HOST;
+// const db_user = process.env.DB_USERNAME;
+// const db_password = process.env.DB_PASSWORD;
+// const db_name = process.env.DB_DBNAME;
 async function connectToDatabase() {
   try {
     // Create the connection to database
