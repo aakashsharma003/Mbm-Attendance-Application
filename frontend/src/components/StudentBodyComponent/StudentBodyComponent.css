@@ -67,6 +67,7 @@
   border-radius: 12px;
 }
 .content {
+  padding: 5%;
   overflow: scroll;
   overflow-x: hidden;
   display: flex;

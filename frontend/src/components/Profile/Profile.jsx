@@ -6,7 +6,9 @@ export const Profile = () => {
   return (
     <div className="profile-box">
       <div className="profile-headings">
-        <h1 className="flex">My Profile</h1>
+        <h1 className="flex" style={{ fontSize: "6dvh" }}>
+          My Profile
+        </h1>
       </div>
 
       <div className="profile-headings">

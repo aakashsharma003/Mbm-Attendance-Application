@@ -24,4 +24,7 @@
   .sidenav-logo {
     margin-right: 0;
   }
+  .navheading {
+    display: none;
+  }
 }
