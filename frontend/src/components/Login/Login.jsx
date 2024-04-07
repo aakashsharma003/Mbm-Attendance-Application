@@ -35,9 +35,9 @@ const Login = () => {
         <SideBar />
         <div className="login-container">
           <div className="login-heading">Enter Login Credential</div>
-          <div className="login-icon">
+          {/* <div className="login-icon">
             <img src={Logo_icon} alt="logo-mbm" className="logo-mbm" />
-          </div>
+          </div> */}
           <div className="buttons">
             <div className="box-container">
               <div className="button-container">

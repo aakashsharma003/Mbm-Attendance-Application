@@ -140,13 +140,20 @@
 }
 .s-btn {
   border-top-left-radius: 1vh;
+  background: var(--secondary-color);
+  color: #f8f7f6;
 }
 .t-btn {
   border-top-right-radius: 1vh;
 }
+.s-btn,
+.t-btn {
+  width: 50%;
+}
 .login-heading {
-  color: var(--secondary-color);
+  color: black;
   width: 100%;
+  font-weight: bold;
   text-align: center;
 }
 .login-icon {
