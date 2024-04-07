@@ -37,8 +37,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 3%;
-  height: 80%;
+  width: 12dvw;
+  height: 6dvh;
   cursor: pointer;
 }
 ul {
