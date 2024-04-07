@@ -151,7 +151,7 @@
   width: 50%;
 }
 .login-heading {
-  color: black;
+  color: var(--temporary-color);
   width: 100%;
   font-weight: bold;
   text-align: center;

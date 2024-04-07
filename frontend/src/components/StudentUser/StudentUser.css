@@ -37,7 +37,7 @@
 }
 .login-btn {
   padding: 2dvw 2dvh;
-  font-size: 2vh;
+  font-size: 3vh;
   border: 1px solid var(--temporary-color);
   text-decoration: none;
   transition: all;
