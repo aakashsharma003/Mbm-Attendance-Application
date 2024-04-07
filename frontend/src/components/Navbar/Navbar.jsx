@@ -7,7 +7,7 @@ export const Navbar = () => {
     <>
       <header>
         <div className="nav-container">
-          <div className="logo">
+          <div className="logo" style={{ width: "6dvw", height: "6dvh" }}>
             <img className="nav-logo-icon" src={Logo_icon} alt="small-logo" />
           </div>
           <div className="logo">

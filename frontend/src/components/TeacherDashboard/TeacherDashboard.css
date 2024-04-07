@@ -27,4 +27,12 @@
   .sidenav-logo {
     margin-right: 0;
   }
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 6dvw;
+    height: 6dvh;
+    cursor: pointer;
+  }
 }
