@@ -19,6 +19,7 @@ import "dotenv/config";
 import { error } from "console";
 import { errorHandler } from "./errorHandler.js";
 import cors from "cors";
+import multer from "multer";
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
 const app = express();
@@ -71,26 +72,18 @@ app.use(express.json());
 //   .catch((err) => {
 //     console.error("Error while creating subject table", err);
 //   });
-// default option
-// app.use(fileUpload());
-// app.post("/", (req, res) => {
-//   let sampleFile;
-//   let uploadPath;
-//   if (!req.files || Object.keys(req.files).length === 0) {
-//     return res.status(400).send("No files were uploaded.");
-//   }
-//   sampleFile = req.files.samplefile;
-//   console.log(dirname);
-//   uploadPath = __dirname + "/upload/" + sampleFile.name;
-//   console.log(uploadPath);
-//   console.log(sampleFile);
-
-//   sampleFile.mv(uploadPath, function (err) {
-//     if (err) return res.status(500).send(err);
-
-//     res.send("file uploaded successfully");
-//   });
-// });
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./");
+  },
+  filename: function (req, file, cb) {
+    const ext = file.mimetype.split("/")[1];
+    cb(null, `upload/${file.originalname}-${Date.now()}.${ext}`);
+  },
+});
+const upload = multer({
+  storage: storage,
+});
 app.post("/student", (req, res, next) => {
   const rollno = req.query.rollno;
   const password = req.query.password;
