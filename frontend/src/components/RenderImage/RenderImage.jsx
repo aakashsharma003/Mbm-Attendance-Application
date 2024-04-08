@@ -48,6 +48,7 @@ export const RenderImage = () => {
         type="file"
         name="image"
         accept="image/*"
+        style={{ display: "none" }}
         multiple={false}
         onChange={imageHandler}
       />
