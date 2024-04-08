@@ -58,11 +58,11 @@ ul {
   .s-box {
     flex-direction: column;
     width: 90vw;
-    height: 80vh;
+    height: 84vh;
   }
   .logo {
-    width: 8dvw;
-    height: 5dvh;
+    width: 9dvw;
+    height: 6dvh;
   }
   .para {
     font-size: 2dvh;
@@ -82,8 +82,7 @@ ul {
     width: 100%;
     height: 50%;
   }
-  .s-btn,
-  .t-btn {
-    width: 50%;
+  .login-heading {
+    display: none;
   }
 }

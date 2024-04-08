@@ -11,7 +11,7 @@ const SideBar = () => {
         </div>
         <div className="heading">
           <div className="first-heading" style={{ letterSpacing: "3px" }}>
-            <pre style={{ fontWeight: "bold" }}>
+            <pre style={{ fontWeight: "bold", fontSize: "90%" }}>
               <span style={{ color: "#cc0c1e", letterSpacing: "5px" }}>
                 MBM
               </span>{" "}
