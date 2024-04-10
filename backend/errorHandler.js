@@ -9,5 +9,8 @@ export const errorHandler = (err, req, res, next) => {
       .json({ message: "Subject with given Subject Code Already exists..!" });
   } else if (err.errno == 1366 || err.errno == 1265) {
     res.status(404).json({ message: "Year should be an Integer..!" });
-  } else res.status(500).json({ message: "Internal server error" });
+  } else {
+    console.log(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };

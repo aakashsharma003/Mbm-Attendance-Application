@@ -217,6 +217,42 @@ async function insertIntoSubject(
   }
 }
 
+async function uploadStudentImage(image, rollno) {
+  try {
+    console.log(image, rollno);
+    const db = await connectToDatabase();
+    const sqlInsert = "update student set photo = ?  where rollno = ?";
+    const res = await db.query(sqlInsert, [image, rollno]);
+    return res;
+  } catch (err) {
+    console.error("Error while updating photo in student table:", err);
+    throw err;
+  }
+}
+
+async function uploadTeacherImage(image, teacherId) {
+  try {
+    const db = connectToDatabase();
+    const sqlInsert = "update teacher set `photo` = ?  where `teacherId` = ?";
+    const res = await db.query(sqlInsert, [image, teacherId]);
+    return res;
+  } catch (err) {
+    console.error("Error while updating photo in teacher table:", err);
+    throw err;
+  }
+}
+async function getStudentImage({ rollno }) {
+  try {
+    const db = await connectToDatabase();
+    const sqlQuery = "update student SET photo=? where rollno=?";
+    const [rows] = await db.query(sqlQuery, [rollno]);
+    console.log(rows);
+    return rows;
+  } catch (err) {
+    console.error("Error while updating photo in teacher table:", err);
+    throw err;
+  }
+}
 export {
   insertData,
   insertTeacherData,
@@ -229,4 +265,7 @@ export {
   connectToDatabase,
   createStudentTable,
   createTeacherTable,
+  uploadStudentImage,
+  uploadTeacherImage,
+  getStudentImage,
 };

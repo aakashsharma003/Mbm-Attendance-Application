@@ -1,4 +1,4 @@
-import express, { response } from "express";
+import express, { response, urlencoded } from "express";
 import { engine } from "express-handlebars";
 import {
   connectToDatabase,
@@ -7,27 +7,25 @@ import {
   createTeacherTable,
   getAllStudent,
   getAllTeacher,
+  getStudentImage,
   insertData,
   insertIntoSubject,
   insertIntoTeacher,
   insertTeacherData,
+  uploadStudentImage,
 } from "./query.js";
 import "dotenv/config";
-// import fileUpload from "express-fileupload";
-// import { fileURLToPath } from "url";
-// import { dirname } from "path";
 import { error } from "console";
 import { errorHandler } from "./errorHandler.js";
 import cors from "cors";
 import multer from "multer";
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
 const app = express();
 const port = process.env.PORT || 5000;
 // const exphbs = engine;
 
 app.use(cors());
 app.use(express.json());
+
 // connectToDatabase()
 //   .then(() => {
 //     console.log("Connected to Database");
@@ -72,18 +70,49 @@ app.use(express.json());
 //   .catch((err) => {
 //     console.error("Error while creating subject table", err);
 //   });
+
+app.use("/uploads", express.static("uploads"));
+app.use(express.urlencoded({ extended: false }));
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./");
+  destination: function (req, file, cb) {
+    return cb(null, "./uploads");
   },
   filename: function (req, file, cb) {
-    const ext = file.mimetype.split("/")[1];
-    cb(null, `upload/${file.originalname}-${Date.now()}.${ext}`);
+    return cb(null, `${Date.now()}-${file.originalname}`);
   },
 });
-const upload = multer({
-  storage: storage,
+const upload = multer({ storage });
+app.post("/uploadImage", upload.single("profileImage"), (req, res, next) => {
+  // console.log(req.file.path);
+  // console.log(req.file);
+  const rollno = req.body.rollno;
+  console.log(rollno);
+  const imagePath = "/uploads/" + req.file.filename;
+  uploadStudentImage(imagePath, rollno)
+    .then((resp) => {
+      console.log("image uploaded succesfully");
+      res.json({ imagePath });
+    })
+    .catch((err) => {
+      console.error("Err while uploading image", err);
+      next(new Error("Err while uploading image"));
+    });
 });
+
+app.get("/image", (req, res) => {
+  let rollno = req.body.rollno;
+  let tid = req.body.tid;
+  getStudentImage(rollno)
+    .then((result) =>
+      res.send({
+        image: result[0].image,
+      })
+    )
+    .catch((err) => {
+      next(new Error("Server is Busy right now"));
+    });
+});
+
 app.post("/student", (req, res, next) => {
   const rollno = req.query.rollno;
   const password = req.query.password;

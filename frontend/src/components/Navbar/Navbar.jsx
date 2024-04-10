@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import Logo_icon from "../../assets/logo.png";
 import Userphoto from "../../assets/user.png";
 import "./Navbar.css";
