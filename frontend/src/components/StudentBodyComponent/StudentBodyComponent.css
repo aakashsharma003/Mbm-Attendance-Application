@@ -68,6 +68,13 @@
 }
 .content {
   display: flex;
-  width: 100%;
-  height: 85%;
+  width: 80%;
+  height: 75%;
+}
+@media (width <= 860px) {
+  .content {
+    flex-direction: column;
+    overflow: scroll;
+    overflow-x: hidden;
+  }
 }

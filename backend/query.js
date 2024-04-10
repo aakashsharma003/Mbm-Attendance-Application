@@ -12,10 +12,10 @@ async function connectToDatabase() {
   try {
     // Create the connection to database
     const db = await mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      database: "attendenceweb",
-      password: "1234",
+      host: process.env.DB_HOST,
+      user: process.env.DB_USERNAME,
+      database: process.env.DB_DBNAME,
+      password: process.env.DB_PASSWORD,
     });
 
     return db;

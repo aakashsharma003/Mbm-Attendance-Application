@@ -22,7 +22,7 @@
 
 .profile-box {
   /* border: 2px solid #cfe8ff; */
-  width: 60%;
+  flex-grow: 1;
   height: 80%;
 }
 .profile-headings {
