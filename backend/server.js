@@ -23,16 +23,16 @@ const app = express();
 const port = process.env.PORT || 5000;
 // const exphbs = engine;
 
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
-connectToDatabase()
-  .then(() => {
-    console.log("Connected to Database");
-  })
-  .catch((err) => {
-    console.error("Error while connecting to database:", err);
-  });
+// connectToDatabase()
+//   .then(() => {
+//     console.log("Connected to Database");
+//   })
+//   .catch((err) => {
+//     console.error("Error while connecting to database:", err);
+//   });
 
 // createStudentTable()
 //   .then(() => {
