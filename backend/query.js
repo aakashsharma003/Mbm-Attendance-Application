@@ -232,9 +232,10 @@ async function uploadStudentImage(image, rollno) {
 
 async function uploadTeacherImage(image, teacherId) {
   try {
-    const db = connectToDatabase();
-    const sqlInsert = "update teacher set `photo` = ?  where `teacherId` = ?";
-    const res = await db.query(sqlInsert, [image, teacherId]);
+    console.log(image, tid);
+    const db = await connectToDatabase();
+    const sqlInsert = "update teacher set photo = ?  where tid = ?";
+    const res = await db.query(sqlInsert, [image, tid]);
     return res;
   } catch (err) {
     console.error("Error while updating photo in teacher table:", err);

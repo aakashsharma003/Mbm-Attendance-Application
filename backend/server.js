@@ -13,6 +13,7 @@ import {
   insertIntoTeacher,
   insertTeacherData,
   uploadStudentImage,
+  uploadTeacherImage,
 } from "./query.js";
 import "dotenv/config";
 import { error } from "console";
@@ -85,18 +86,31 @@ const upload = multer({ storage });
 app.post("/uploadImage", upload.single("profileImage"), (req, res, next) => {
   // console.log(req.file.path);
   // console.log(req.file);
-  const rollno = req.body.rollno;
-  console.log(rollno);
+  let rollno = req.body.rollno;
+  let tid = req.body.tid;
+  console.log(rollno, tid);
   const imagePath = "/uploads/" + req.file.filename;
-  uploadStudentImage(imagePath, rollno)
-    .then((resp) => {
-      console.log("image uploaded succesfully");
-      res.json({ imagePath });
-    })
-    .catch((err) => {
-      console.error("Err while uploading image", err);
-      next(new Error("Err while uploading image"));
-    });
+  if (rollno)
+    uploadStudentImage(imagePath, rollno)
+      .then((resp) => {
+        console.log("image uploaded succesfully");
+        res.json({ imagePath });
+      })
+      .catch((err) => {
+        console.error("Err while uploading image", err);
+        next(new Error("Err while uploading image"));
+      });
+  else if (tid)
+    uploadTeacherImage(imagePath, tid)
+      .then((resp) => {
+        console.log("image uploaded succesfully");
+        res.json({ imagePath });
+      })
+      .catch((err) => {
+        console.error("Err while uploading image", err);
+        next(new Error("Err while uploading image"));
+      });
+  else next(new Error("first select a Image..!!!"));
 });
 
 app.get("/image", (req, res) => {

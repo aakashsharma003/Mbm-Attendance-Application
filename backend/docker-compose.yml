@@ -1,20 +1,82 @@
 version: "3.8"
 
 services:
-  mysqldb:
-    image: mysql
-    restart: always
-    env_file: ./.env
-    environment:
-      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-      MYSQL_DATABASE: $MYSQL_DATABASE
-    ports:
-      - $MYSQL_LOCAL_PORT:$MYSQL_DOCKER_PORT
-    volumes:
-      - db-config:/etc/mysql
-      - db-data:/var/lib/mysql
-      - ./db/backup/files/:/data_backup/data
+  # app1 :
+  #   image: simple
+  #   ports:
+  #   - "3001:6000"
+  #   volumes:
+  #   - ./app-data:/app/data
 
-volumes:
-  db-config:
-  db-data:
+  # dolphin :
+  #   image: new2
+  #   ports:
+  #   - "3002:9000"
+  #   volumes:
+  #   - ./dolphin-data:/app/data
+
+  # mysql-db:
+  #   image: mysql:latest
+  #   container_name: mysql-db
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: your_root_password
+  #     MYSQL_DATABASE: mydatabase
+  #     MYSQL_USER: root1
+  #     MYSQL_PASSWORD: 1234
+  #   ports:
+  #     - "33011:3306"
+  #   volumes:
+  #     - ./mysql-data:/var/lib/mysql
+
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin:latest
+  #   container_name: phpmyadmin
+  #   ports:
+  #     - "8080:80"
+  #   environment:
+  #     PMA_HOST: mysql-db
+  #     MYSQL_ROOT_PASSWORD: your_root_password
+  #   depends_on:
+  #     - mysql-db
+
+  # mongodb:
+  #   image: mongo:latest
+  #   container_name: mongodb
+  #   ports:
+  #     - "27018:27017"
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: 1234
+  #   volumes:
+  #     - ./mongodb-data1:/data/db
+
+  # rabbitmq:
+  #   image: "rabbitmq:management"  # This includes the RabbitMQ management plugin
+  #   ports:
+  #     - "5672:5672"  # AMQP port
+  #     - "15672:15672"  # RabbitMQ management UI port
+  #   environment:
+  #     - RABBITMQ_DEFAULT_USER=user  # Username for management UI
+  #     - RABBITMQ_DEFAULT_PASS=password  # Password for management UI
+  #   volumes:
+  #     - /rabbitmq-data:/var/lib/rabbitmq
+
+  redis1:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis_data:/data
+
+  # redis2:
+  #   image: "redis:latest"
+  #   ports:
+  #     - "6380:6379"
+  #   volumes:
+  #     - ./redis_data1:/data
+
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    container_name: redisinsight
+    ports:
+      - "8001:8001"
