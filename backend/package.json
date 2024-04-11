@@ -2,7 +2,7 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "npx nodemon server.js && docker-compose up -d"
+    "dev": "npx nodemon server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
