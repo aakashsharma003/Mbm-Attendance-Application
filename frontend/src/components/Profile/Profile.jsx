@@ -23,10 +23,10 @@ export const Profile = () => {
           <div className="p-heading val">{data.rollno}</div>
         </div>
       )}
-      {data.teacherid && (
+      {data.teacherId && (
         <div className="profile-headings">
           <div className="p-heading">TeacherId:</div>
-          <div className="p-heading val">{data.teacherid}</div>
+          <div className="p-heading val">{data.teacherId}</div>
         </div>
       )}
       {data.branch && (

@@ -10,19 +10,29 @@ export const RenderImage = () => {
   const location = useLocation();
   const data = location.state.data;
   let photo = data.photo;
-
-  if (photo) photo = server + photo;
-  const [selectedImage, setSelectedImage] = useState(photo);
-  if (!photo) setSelectedImage(DefaultProfile);
-  // const [flag, setFlag] = useState(false);
+  photo = photo || data.Photo;
   let rollno = data.rollno;
-  let tid = data.teacherid;
+  let teacherId = data.teacherId;
+  const [selectedImage, setSelectedImage] = useState(DefaultProfile);
+  useEffect(() => {
+    const fetchProfile = () => {
+      if (photo) {
+        setSelectedImage(server + photo);
+        toast.success("Profile fetched from database..!");
+      } else toast.error("Pls update your Profile photo");
+    };
+    fetchProfile();
+  }, []);
+
+  // if (!photo) setSelectedImage(DefaultProfile);
+  // const [flag, setFlag] = useState(false);
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     formData.append("rollno", rollno);
-    formData.append("tid", tid);
+    formData.append("teacherId", teacherId);
     try {
       const res = await axios.post(`${server}/uploadImage`, formData, {
         headers: {

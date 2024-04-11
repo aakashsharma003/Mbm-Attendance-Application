@@ -221,7 +221,7 @@ async function uploadStudentImage(image, rollno) {
   try {
     console.log(image, rollno);
     const db = await connectToDatabase();
-    const sqlInsert = "update student set photo = ?  where rollno = ?";
+    const sqlInsert = "update student set photo = ? where rollno = ?";
     const res = await db.query(sqlInsert, [image, rollno]);
     return res;
   } catch (err) {
@@ -232,23 +232,35 @@ async function uploadStudentImage(image, rollno) {
 
 async function uploadTeacherImage(image, teacherId) {
   try {
-    console.log(image, tid);
+    console.log(image, teacherId);
     const db = await connectToDatabase();
-    const sqlInsert = "update teacher set photo = ?  where tid = ?";
-    const res = await db.query(sqlInsert, [image, tid]);
+    const sqlInsert = "update teacher set photo = ? where teacherId = ?";
+    const res = await db.query(sqlInsert, [image, teacherId]);
     return res;
   } catch (err) {
     console.error("Error while updating photo in teacher table:", err);
     throw err;
   }
 }
-async function getStudentImage({ rollno }) {
+async function getStudentImage(rollno) {
   try {
     const db = await connectToDatabase();
-    const sqlQuery = "update student SET photo=? where rollno=?";
-    const [rows] = await db.query(sqlQuery, [rollno]);
-    console.log(rows);
-    return rows;
+    const sqlQuery = "select photo from student where rollno=?";
+    const res = await db.query(sqlQuery, [rollno]);
+    // console.log(res);
+    return res;
+  } catch (err) {
+    console.error("Error while updating photo in teacher table:", err);
+    throw err;
+  }
+}
+async function getTeacherImage(teacherId) {
+  try {
+    const db = await connectToDatabase();
+    const sqlQuery = "select photo from teacher where teacherid=?";
+    const res = await db.query(sqlQuery, [teacherId]);
+    // console.log(res);
+    return res;
   } catch (err) {
     console.error("Error while updating photo in teacher table:", err);
     throw err;
@@ -269,4 +281,5 @@ export {
   uploadStudentImage,
   uploadTeacherImage,
   getStudentImage,
+  getTeacherImage,
 };

@@ -35,13 +35,13 @@ const TeacherBodyComponent = ({ dashboard, attendence, subjects }) => {
   );
 };
 const Subject = () => {
-  // const location = useLocation();
+  const location = useLocation();
   const [subjectname, setSubjectName] = useState("");
   const [subjectcode, setSubjectCode] = useState("");
   const [semester, setSemester] = useState("");
   const [branch, setBranch] = useState("");
   const [year, SetYear] = useState("");
-  // const allotedTeacher = location.state.data.name;
+  const allotedTeacher = location.state.data.name;
   const submithandler = async (e) => {
     e.preventDefault();
     try {
@@ -51,7 +51,7 @@ const Subject = () => {
         semester,
         branch,
         year,
-        // allotedTeacher,
+        allotedTeacher,
       });
       toast.success(response.data.message);
     } catch (err) {

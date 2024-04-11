@@ -8,6 +8,7 @@ import {
   getAllStudent,
   getAllTeacher,
   getStudentImage,
+  getTeacherImage,
   insertData,
   insertIntoSubject,
   insertIntoTeacher,
@@ -83,49 +84,75 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage });
-app.post("/uploadImage", upload.single("profileImage"), (req, res, next) => {
-  // console.log(req.file.path);
-  // console.log(req.file);
-  let rollno = req.body.rollno;
-  let tid = req.body.tid;
-  console.log(rollno, tid);
-  const imagePath = "/uploads/" + req.file.filename;
-  if (rollno)
-    uploadStudentImage(imagePath, rollno)
-      .then((resp) => {
-        console.log("image uploaded succesfully");
-        res.json({ imagePath });
-      })
-      .catch((err) => {
-        console.error("Err while uploading image", err);
-        next(new Error("Err while uploading image"));
-      });
-  else if (tid)
-    uploadTeacherImage(imagePath, tid)
-      .then((resp) => {
-        console.log("image uploaded succesfully");
-        res.json({ imagePath, message: "image uploaded succesfully..!!" });
-      })
-      .catch((err) => {
-        console.error("Err while uploading image", err);
-        next(new Error("Err while uploading image"));
-      });
-  else next(new Error("first select a Image..!!!"));
-});
+app.post(
+  "/uploadImage",
+  upload.single("profileImage"),
+  async (req, res, next) => {
+    // Access uploaded image details (consider error handling for file upload)
+    const imagePath = req.file ? `/uploads/${req.file.filename}` : undefined;
 
-app.get("/image", (req, res) => {
-  let rollno = req.body.rollno;
-  let tid = req.body.tid;
-  getStudentImage(rollno)
-    .then((result) =>
-      res.send({
-        image: result[0].image,
-      })
-    )
-    .catch((err) => {
-      next(new Error("Server is Busy right now"));
-    });
-});
+    // Validate and handle missing image or body data
+    if (!imagePath) {
+      return res.status(400).json({ message: "Missing image file" });
+    }
+
+    const rollno = req.body.rollno;
+    const teacherId = req.body.teacherId;
+
+    if (!rollno && !teacherId) {
+      return res
+        .status(400)
+        .json({ message: "Please provide either rollno or teacherId" });
+    }
+
+    try {
+      // Upload based on available data
+      console.log(rollno, teacherId);
+      if (teacherId === "undefined") {
+        await uploadStudentImage(imagePath, rollno);
+        console.log("Image uploaded successfully (student)");
+      } else if (rollno === "undefined") {
+        await uploadTeacherImage(imagePath, teacherId);
+        console.log("Image uploaded successfully (teacher)");
+      }
+
+      res.json({ imagePath, message: "Image uploaded successfully!" });
+    } catch (err) {
+      console.error("Error uploading image:", err);
+      next(new Error("Image upload failed")); // Consider a more specific error message
+    }
+  }
+);
+
+// app.get("/image", (req, res, next) => {
+//   let rollno = req.query.rollno;
+//   let teacherId = req.query.teacherId;
+//   if (rollno) {
+//     getStudentImage(rollno)
+//       .then((data) => {
+//         console.log(data);
+//         res.json({
+//           path: data[0][0].photo,
+//         });
+//       })
+//       .catch((err) => {
+//         next(new Error("Pls update your Profile Image..!!"));
+//       });
+//   } else if (teacherId) {
+//     getTeacherImage(teacherId)
+//       .then((data) => {
+//         console.log(data[0][0].photo);
+//         res.json({
+//           path: data[0][0].photo,
+//         });
+//       })
+//       .catch((err) => {
+//         next(new Error("Pls update your Profile Image..!!"));
+//       });
+//   } else {
+//     next(new Error("Profile photo not found"));
+//   }
+// });
 
 app.post("/student", (req, res, next) => {
   const rollno = req.query.rollno;
@@ -194,15 +221,15 @@ app.post("/teacher", (req, res, next) => {
     .then((response) => {
       // console.log(response[0]);
       if (response[0].length == 0) throw new Error("Teacher not found");
-      const { id, name, teacherId, password, department, photo } =
+      const { id, name, teacherId, password, department, Photo } =
         response[0][0];
       res.json({
         id,
         name,
-        teacherid,
+        teacherId,
         password,
         department,
-        photo,
+        Photo,
         message: "login Successfully..!!",
       });
     })
