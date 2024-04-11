@@ -23,16 +23,12 @@ export const RenderImage = () => {
     const formData = new FormData(event.target);
     formData.append("rollno", rollno);
     try {
-      const res = await axios.post(
-        "http://localhost:4000/uploadImage",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            "ngrok-skip-browser-warning": "69420",
-          },
-        }
-      );
+      const res = await axios.post(`${server}/uploadImage`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "ngrok-skip-browser-warning": "69420",
+        },
+      });
       // console.log();
       setSelectedImage(server + res.data.imagePath);
     } catch (error) {
