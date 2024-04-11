@@ -27,7 +27,7 @@
 @media (width <= 860px) {
   .p-image {
     width: 65dvw;
-    height: 40dvh;
+    height: 30dvh;
   }
 }
 @media (height >= 500px) and (width >= 535px) and (width <= 859px) {
