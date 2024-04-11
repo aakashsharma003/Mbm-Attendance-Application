@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
-export const server = "";
+export const server =
+  "https://crystal-crossword-pathology-nvidia.trycloudflare.com";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />
