@@ -70,7 +70,7 @@ export const RenderImage = () => {
               src={selectedImage}
               alt="img"
               onChange={(e) => {
-                if (e.target.value != "") {
+                if (e.target.value) {
                   toast.success("Now upload ur selected image..!!");
                 }
               }}
