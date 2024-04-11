@@ -104,7 +104,7 @@ app.post("/uploadImage", upload.single("profileImage"), (req, res, next) => {
     uploadTeacherImage(imagePath, tid)
       .then((resp) => {
         console.log("image uploaded succesfully");
-        res.json({ imagePath });
+        res.json({ imagePath, message: "image uploaded succesfully..!!" });
       })
       .catch((err) => {
         console.error("Err while uploading image", err);

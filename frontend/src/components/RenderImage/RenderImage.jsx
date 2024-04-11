@@ -69,6 +69,11 @@ export const RenderImage = () => {
             <img
               src={selectedImage}
               alt="img"
+              onChange={(e) => {
+                if (e.target.value != "") {
+                  toast.success("Now upload ur selected image..!!");
+                }
+              }}
               style={{ borderRadius: "50%" }}
             />
           )}

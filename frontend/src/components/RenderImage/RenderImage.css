@@ -19,8 +19,8 @@
   border-radius: 12px;
 }
 .p-image {
-  width: 45dvw;
-  height: 50dvh;
+  width: 30dvw;
+  height: 60dvh;
   display: flex;
   flex-direction: row;
 }
