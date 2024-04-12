@@ -1,7 +1,7 @@
 import "./StudentBodyComponent.css";
 import { Profile } from "../Profile/Profile";
-import Cards from "../Cards/Cards";
 import { RenderImage } from "../RenderImage/RenderImage";
+import ActionAreaCard from "../Card/Card";
 const StudentBodyComponent = ({ dashboard, attendence }) => {
   return (
     <div className="studentbodycontainer">
@@ -18,11 +18,9 @@ const StudentBodyComponent = ({ dashboard, attendence }) => {
       {attendence && (
         <div className="attendence-Container">
           <div className="attendence">
-            <div className="attendence">
-              <div className="attend-heading">Attendence</div>
-              <div className="attendsub-heading">Attendence</div>
-              <Cards />
-            </div>
+            <div className="attend-heading">Attendence</div>
+            <div className="attendsub-heading">Attendence</div>
+            <ActionAreaCard />
           </div>
         </div>
       )}

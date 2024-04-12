@@ -1,10 +1,8 @@
-import React from "react";
 import "./Login.css";
 import StudentUser from "../StudentUser/StudentUser";
 import SideBar from "../Sidebar/SideBar";
 import TeacherUser from "../TeacherUser/TeacherUser";
 import { useState } from "react";
-import Logo_icon from "../../assets/logo.png";
 
 const Login = () => {
   const [userstudent, setUserStudent] = useState(true);

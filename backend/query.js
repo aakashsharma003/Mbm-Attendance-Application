@@ -4,10 +4,7 @@ import mysql from "mysql2/promise";
 import "dotenv/config";
 import { data } from "./data.js";
 import { TeacherData } from "./data.js";
-// const localhost = process.env.DB_HOST;
-// const db_user = process.env.DB_USERNAME;
-// const db_password = process.env.DB_PASSWORD;
-// const db_name = process.env.DB_DBNAME;
+
 async function connectToDatabase() {
   try {
     // Create the connection to database
@@ -60,7 +57,7 @@ async function createTeacherTable() {
         teacherId VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(50) NOT NULL,
         department VARCHAR(255) NOT NULL,
-        Photo VARCHAR(255)
+        photo VARCHAR(255)
       )
     `);
 
@@ -76,13 +73,14 @@ async function createSubjectTable() {
 
     const result = await db.query(`
       CREATE TABLE IF NOT EXISTS subject (
-        id INT AUTO_INCREMENT PRIMARY KEY,
+        subjectid VARCHAR(255) UNIQUE NOT NULL,
         subjectname VARCHAR(255) NOT NULL,
         subjectcode VARCHAR(255) UNIQUE NOT NULL,
         semester VARCHAR(50) NOT NULL,
         branch VARCHAR(255) NOT NULL,
-        year INT NOT NULL,
-        allottedTeacher VARCHAR(150) NOT NULL
+        degree VARCHAR(255) NOT NULL,
+        allottedTeacher VARCHAR(150) NOT NULL,
+        year INT NOT NULL
       )
     `);
 
@@ -90,6 +88,31 @@ async function createSubjectTable() {
   } catch (error) {
     console.error("Error creating teacher table:", error);
     throw error;
+  }
+}
+
+async function createAttendenceTable() {
+  try {
+    const db = await connectToDatabase();
+
+    const res = await db.query(`
+    CREATE TABLE IF NOT EXISTS subject (
+        subjectid VARCHAR(255) UNIQUE NOT NULL,
+        subjectname VARCHAR(255) NOT NULL,
+        studentname VARCHAR(255)  NOT NULL,
+        photo VARCHAR(255),
+        total_attendence INT NOT NULL,
+        mark_attendence INT NOT NULL,
+        year INT NOT NULL,
+      branch VARCHAR(255) NOT NULL,
+      semester VARCHAR(255) NOT NULL
+      )
+    `);
+    console.log(res);
+    return res;
+  } catch (err) {
+    console.log("Error ocuured while creating attendence table..!", err);
+    throw err;
   }
 }
 async function insertIntoTeacher(name, teacherId, password, department, photo) {
@@ -195,20 +218,31 @@ async function getAllTeacher(teacherId) {
   }
 }
 async function insertIntoSubject(
+  subjectid,
   subjectname,
   subjectcode,
   semester,
   branch,
-  year,
-  allottedTeacher
+  degree,
+  allotedTeacher,
+  year
 ) {
   try {
     const db = await connectToDatabase();
 
     const res = await db.query(
-      `INSERT INTO subject (subjectname, subjectcode, semester, branch, year, allottedTeacher) 
-      VALUES (?,?,?,?,?,?)`,
-      [subjectname, subjectcode, semester, branch, year, allottedTeacher]
+      `INSERT INTO subject (subjectid, subjectname, subjectcode, semester, branch, degree, allottedTeacher, year) 
+      VALUES (?,?,?,?,?,?,?,?)`,
+      [
+        subjectid,
+        subjectname,
+        subjectcode,
+        semester,
+        branch,
+        degree,
+        allotedTeacher,
+        year,
+      ]
     );
     return res;
   } catch (err) {
@@ -266,12 +300,14 @@ async function getTeacherImage(teacherId) {
     throw err;
   }
 }
+
 export {
   insertData,
   insertTeacherData,
   getAllStudent,
   getAllTeacher,
   createSubjectTable,
+  createAttendenceTable,
   insertIntoSubject,
   insertIntoStudent,
   insertIntoTeacher,

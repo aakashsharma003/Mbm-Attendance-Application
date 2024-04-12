@@ -1,4 +1,3 @@
-import React from "react";
 import SideNav from "../SideNav/SideNav";
 import StudentBodyComponent from "../StudentBodyComponent/StudentBodyComponent";
 import { useState } from "react";

@@ -1,0 +1,18 @@
+select {
+  display: flex;
+  padding: 2dvh 2dvw;
+  width: 100%;
+  font-weight: 300;
+  font-size: 4vh;
+  flex-direction: column;
+  border: 1px solid gray;
+  border-radius: 8px;
+  margin: 2dvh 0;
+}
+@media (width <= 860px) {
+  select {
+    font-size: 2vh;
+    padding: 1dvh 1dvw;
+    margin: 1dvh 0;
+  }
+}

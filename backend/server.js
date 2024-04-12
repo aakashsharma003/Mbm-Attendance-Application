@@ -2,6 +2,7 @@ import express, { response, urlencoded } from "express";
 import { engine } from "express-handlebars";
 import {
   connectToDatabase,
+  createAttendenceTable,
   createStudentTable,
   createSubjectTable,
   createTeacherTable,
@@ -24,6 +25,8 @@ import multer from "multer";
 const app = express();
 const port = process.env.PORT || 5000;
 // const exphbs = engine;
+import path from "path";
+import urid from "urid";
 
 app.use(cors({ origin: "*" }));
 app.use(express.json());
@@ -73,6 +76,14 @@ app.use(express.json());
 //     console.error("Error while creating subject table", err);
 //   });
 
+// createAttendenceTable()
+//   .then((res) => {
+//     console.log("Attendence table created successfully.!");
+//   })
+//   .catch((err) => {
+//     console.log("Error while creating attendence table", err);
+//   });
+
 app.use("/uploads", express.static("uploads"));
 app.use(express.urlencoded({ extended: false }));
 const storage = multer.diskStorage({
@@ -80,12 +91,17 @@ const storage = multer.diskStorage({
     return cb(null, "./uploads");
   },
   filename: function (req, file, cb) {
-    return cb(null, `${Date.now()}-${file.originalname}`);
+    return cb(null, `${req.customFileName}${path.extname(file.originalname)}`);
   },
 });
 const upload = multer({ storage });
+const extractFileName = (req, res, next) => {
+  req.customFileName = req.headers["filename"];
+  next();
+};
 app.post(
   "/uploadImage",
+  extractFileName,
   upload.single("profileImage"),
   async (req, res, next) => {
     // Access uploaded image details (consider error handling for file upload)
@@ -189,15 +205,26 @@ app.post("/student", (req, res, next) => {
 //   });
 app.post("/teacher/createnewsubject", (req, res, next) => {
   try {
-    const { subjectname, subjectcode, semester, branch, year, allotedTeacher } =
-      req.body;
-    insertIntoSubject(
+    const {
       subjectname,
       subjectcode,
       semester,
       branch,
+      degree,
+      allotedTeacher,
       year,
-      allotedTeacher
+    } = req.body;
+    const subjectId = urid();
+    // console.log(subjectId);
+    insertIntoSubject(
+      subjectId,
+      subjectname,
+      subjectcode,
+      semester,
+      branch,
+      degree,
+      allotedTeacher,
+      year
     )
       .then((resp) => {
         if (resp)
@@ -221,7 +248,7 @@ app.post("/teacher", (req, res, next) => {
     .then((response) => {
       // console.log(response[0]);
       if (response[0].length == 0) throw new Error("Teacher not found");
-      const { id, name, teacherId, password, department, Photo } =
+      const { id, name, teacherId, password, department, photo } =
         response[0][0];
       res.json({
         id,
@@ -229,7 +256,7 @@ app.post("/teacher", (req, res, next) => {
         teacherId,
         password,
         department,
-        Photo,
+        photo,
         message: "login Successfully..!!",
       });
     })

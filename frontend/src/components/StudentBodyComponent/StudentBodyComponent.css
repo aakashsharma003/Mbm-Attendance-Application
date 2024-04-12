@@ -71,6 +71,9 @@
   width: 80%;
   height: 75%;
 }
+.attendence-Container {
+  background: var(--grey);
+}
 @media (width <= 860px) {
   .content {
     flex-direction: column;

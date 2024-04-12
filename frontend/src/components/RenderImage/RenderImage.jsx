@@ -10,7 +10,7 @@ export const RenderImage = () => {
   const location = useLocation();
   const data = location.state.data;
   let photo = data.photo;
-  photo = photo || data.Photo;
+  console.log(photo);
   let rollno = data.rollno;
   let teacherId = data.teacherId;
   const [selectedImage, setSelectedImage] = useState(DefaultProfile);
@@ -29,7 +29,7 @@ export const RenderImage = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
+    const filename = rollno ? rollno : teacherId;
     const formData = new FormData(event.target);
     formData.append("rollno", rollno);
     formData.append("teacherId", teacherId);
@@ -37,6 +37,7 @@ export const RenderImage = () => {
       const res = await axios.post(`${server}/uploadImage`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          filename: filename,
         },
       });
       // console.log();
