@@ -9,7 +9,10 @@ import { server } from "../../main";
 import toast from "react-hot-toast";
 import { RenderImage } from "../RenderImage/RenderImage.jsx";
 import { ListBox } from "../ListBox/ListBox.jsx";
-import ActionAreaCard from "../Card/Card.jsx";
+import { SubjectList } from "../SubjectList/SubjectList.jsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faBackward } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 const TeacherBodyComponent = ({ dashboard, attendence, subjects }) => {
   return (
@@ -40,16 +43,20 @@ const TeacherBodyComponent = ({ dashboard, attendence, subjects }) => {
 const Subject = () => {
   const location = useLocation();
   const [createsubjectform, setCreateSubjectForm] = useState(false);
+  const [updateForm, setUpdateForm] = useState(false);
   const [subjectname, setSubjectName] = useState("");
   const [subjectcode, setSubjectCode] = useState("");
   const [semester, setSemester] = useState("1st");
   const [branch, setBranch] = useState("CSE");
   const [degree, setDegree] = useState("B.E");
   const [semOptions, setSemOptions] = useState([]);
-  const allotedTeacher = location.state.data.name;
+  const [subjectid, setSubjectId] = useState("");
+  const allotedTeacher = location.state.data.teacherId;
+  const [clicked, setClicked] = useState(true);
   const date = new Date();
-  const [innerText, setInnerText] = useState("create");
+  const [innerText, setInnerText] = useState("Create");
   const year = date.getFullYear();
+  const navigate = useNavigate();
   const submithandler = async (e) => {
     e.preventDefault();
     try {
@@ -63,10 +70,32 @@ const Subject = () => {
         year,
       });
       toast.success(response.data.message);
+      setCreateSubjectForm(!createsubjectform);
     } catch (err) {
       console.log(err);
       toast.error(err.response.data.message);
     }
+  };
+  const updatehandler = async () => {
+    try {
+      const data = {
+        subjectid,
+        subjectname,
+        subjectcode,
+        semester,
+        branch,
+        degree,
+      };
+      const res = await axios.post(`${server}/teacher/editSubject`, data);
+      // const data = await res.data;
+      toast.success(res.data.message);
+      // navigate("teacher/dashboard");
+      setUpdateForm(!updateForm);
+      setClicked(!clicked);
+    } catch (err) {
+      toast.error(err);
+    }
+    // alert("hiiiiiiiiii......");
   };
   useEffect(() => {
     const filterSemesters = () => {
@@ -106,36 +135,49 @@ const Subject = () => {
   }, [degree]);
 
   return (
-    <form className="attendence" onSubmit={submithandler}>
-      <div className="attend-heading">Subject</div>
+    <div className="attendence">
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
-          height: "100%",
         }}
       >
-        <div className="attendsub-heading">Subject</div>
-        <div>
-          <button
-            style={{
-              color: "white",
-              background: "black",
-              borderRadius: "12px",
-              padding: "3%",
-              width: "5dvw",
-              height: "100%",
-            }}
-            onClick={() => {
-              setCreateSubjectForm(!createsubjectform);
-              innerText == "create"
-                ? setInnerText("back")
-                : setInnerText("create");
-            }}
-          >
-            {innerText}
-          </button>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div className="attend-heading">Subject</div>
+          <div className="attendsub-heading">Subject</div>
         </div>
+
+        <button
+          style={{
+            color: "white",
+            background: "black",
+            borderRadius: "10px",
+            height: "100%",
+            fontSize: "2dvh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "2%",
+          }}
+          onClick={() => {
+            setCreateSubjectForm(!createsubjectform);
+            innerText == "Create"
+              ? setInnerText("Back")
+              : setInnerText("Create");
+            // setUpdateForm(!updateForm);
+          }}
+        >
+          <div style={{ marginRight: "5px" }}>
+            {innerText == "Create" && <FontAwesomeIcon icon={faPlus} />}
+            {innerText == "Back" && <FontAwesomeIcon icon={faBackward} />}
+          </div>
+          <div>{innerText}</div>
+        </button>
       </div>
 
       <div
@@ -148,7 +190,8 @@ const Subject = () => {
         }}
       >
         {createsubjectform && (
-          <div
+          <form
+            onSubmit={submithandler}
             style={{
               display: "flex",
               justifyContent: "center",
@@ -217,22 +260,95 @@ const Subject = () => {
               selected={semester}
             />
             <button className="d-btn">Create Subject</button>
-          </div>
+          </form>
+        )}
+        {updateForm && (
+          <form
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              width: "100%",
+            }}
+          >
+            <InputBox
+              onChange={(e) => {
+                setSubjectName(e.target.value);
+              }}
+              type={"text"}
+              name={"subjectname"}
+              id={"subjectname"}
+              placeholder={"Subject Name"}
+              required={"required"}
+              bgcolor={"white"}
+              margin={"2dvh 0"}
+            />
+            <InputBox
+              onChange={(e) => {
+                setSubjectCode(e.target.value);
+              }}
+              type={"text"}
+              name={"subjectcode"}
+              id={"subjectcode"}
+              placeholder={"Subject Code"}
+              required={"required"}
+              bgcolor={"white"}
+              margin={"2dvh 0"}
+            />
+            <ListBox
+              onChange={(e) => {
+                console.log(e.target.value);
+                setDegree(e.target.value);
+              }}
+              id={"Degree"}
+              options={["B.E", "M.E", "M.C.A"]}
+              bgcolor={"white"}
+              color={"Black"}
+              padding={"2dvh 2dvw"}
+              selected={degree}
+            />
+
+            <ListBox
+              onChange={(e) => {
+                setBranch(e.target.value);
+              }}
+              id={"Branch"}
+              options={["CSE", "AI & DS", "IT"]}
+              bgcolor={"white"}
+              color={"black"}
+              padding={"2dvh 2dvw"}
+              selected={branch}
+            />
+            <ListBox
+              onChange={(e) => {
+                setSemester(e.target.value);
+              }}
+              id={"semester"}
+              options={semOptions}
+              bgcolor={"white"}
+              color={"Black"}
+              padding={"2dvh 2dvw"}
+              selected={semester}
+            />
+            <button onClick={updatehandler} type="button" className="d-btn">
+              Update Subject
+            </button>
+          </form>
         )}
         {!createsubjectform && (
           <div className="subject-list">
-            <ActionAreaCard />
-            <ActionAreaCard />
-            <ActionAreaCard />
-            <ActionAreaCard />
-            <ActionAreaCard />
-            <ActionAreaCard />
-            <ActionAreaCard />
-            <ActionAreaCard />
+            <SubjectList
+              setUpdateForm={setUpdateForm}
+              setSubjectId={setSubjectId}
+              clicked={clicked}
+              setClicked={setClicked}
+              setInnerText={setInnerText}
+            />
           </div>
         )}
       </div>
-    </form>
+    </div>
   );
 };
 export default TeacherBodyComponent;

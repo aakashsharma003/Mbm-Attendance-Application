@@ -6,7 +6,9 @@ import {
   createStudentTable,
   createSubjectTable,
   createTeacherTable,
+  deleteSubject,
   getAllStudent,
+  getAllSubjects,
   getAllTeacher,
   getStudentImage,
   getTeacherImage,
@@ -14,6 +16,7 @@ import {
   insertIntoSubject,
   insertIntoTeacher,
   insertTeacherData,
+  updateSubject,
   uploadStudentImage,
   uploadTeacherImage,
 } from "./query.js";
@@ -266,6 +269,45 @@ app.post("/teacher", (req, res, next) => {
     });
 });
 
+app.get("/allsubjects", (req, res, next) => {
+  const teacherid = req.query.teacherid;
+  getAllSubjects(teacherid)
+    .then((resp) => {
+      const subjects = resp[0];
+      // console.log(resp[0]);
+      res.json({
+        subjects,
+      });
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
+app.delete("/deleteSubject:id", (req, res, next) => {
+  const subjectId = req.params.id;
+  console.log(subjectId);
+  deleteSubject(subjectId)
+    .then((resp) => {
+      res.send({ message: "deleted successfully" });
+    })
+    .catch((err) => {
+      console.log(err);
+      next("Pls try again after some time !");
+    });
+});
+app.post("/teacher/editSubject", (req, res, next) => {
+  const { subjectid, subjectname, subjectcode, semester, branch, degree } =
+    req.body;
+  updateSubject(subjectid, subjectname, subjectcode, semester, branch, degree)
+    .then((resp) => {
+      res.send({ message: "Subject info Updated Successfully" });
+    })
+    .catch((err) => {
+      console.log(err);
+      next("Pls try again after some time !");
+    });
+});
 // // Templating engine
 // app.engine("hbs", exphbs({ extname: ".hbs" }));
 // app.set("view engine", "hbs");

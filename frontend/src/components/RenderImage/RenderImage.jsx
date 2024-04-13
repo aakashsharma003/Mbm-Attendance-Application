@@ -40,9 +40,10 @@ export const RenderImage = () => {
           filename: filename,
         },
       });
+      const data = await res.data;
       // console.log();
-      setSelectedImage(server + res.data.imagePath);
-      toast.success(res.data.message);
+      setSelectedImage(server + data.imagePath);
+      toast.success(data.message);
     } catch (err) {
       console.error("Error occurred while uploading image:", err);
       toast.error(err.response.data.message);

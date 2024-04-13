@@ -288,6 +288,20 @@ async function getStudentImage(rollno) {
     throw err;
   }
 }
+async function getAllSubjects(teacherId) {
+  try {
+    const db = await connectToDatabase();
+    const sqlQuery = "select * from subject where allottedTeacher = ?";
+    const res = await db.query(sqlQuery, [teacherId]);
+    return res;
+  } catch (err) {
+    console.error(
+      "Error while getting all subjects with given teacherid:",
+      err
+    );
+    throw err;
+  }
+}
 async function getTeacherImage(teacherId) {
   try {
     const db = await connectToDatabase();
@@ -297,6 +311,48 @@ async function getTeacherImage(teacherId) {
     return res;
   } catch (err) {
     console.error("Error while updating photo in teacher table:", err);
+    throw err;
+  }
+}
+
+async function deleteSubject(subjectId) {
+  try {
+    console.log(subjectId);
+    const db = await connectToDatabase();
+    const sqlQuery = "delete from subject where subjectid = ?";
+    const res = await db.query(sqlQuery, [subjectId]);
+    // console.log(res);
+    return res;
+  } catch (err) {
+    console.error("Error while deleting subject:", err);
+    throw err;
+  }
+}
+async function updateSubject(
+  subjectId,
+  subjectname,
+  subjectcode,
+  semester,
+  branch,
+  degree
+) {
+  try {
+    // console.log(subjectId);
+    const db = await connectToDatabase();
+    const sqlQuery =
+      "UPDATE subject SET subjectname = ?, subjectcode = ?,semester= ? , branch = ? ,degree = ? WHERE subjectid = ?";
+    const res = await db.query(sqlQuery, [
+      subjectname,
+      subjectcode,
+      semester,
+      branch,
+      degree,
+      subjectId,
+    ]);
+    // console.log(res);
+    return res;
+  } catch (err) {
+    console.error("Error while updating subject data:", err);
     throw err;
   }
 }
@@ -318,4 +374,7 @@ export {
   uploadTeacherImage,
   getStudentImage,
   getTeacherImage,
+  getAllSubjects,
+  deleteSubject,
+  updateSubject,
 };
