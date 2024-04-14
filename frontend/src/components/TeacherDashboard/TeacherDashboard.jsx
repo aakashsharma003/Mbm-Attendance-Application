@@ -6,15 +6,20 @@ const TeacherDashboard = () => {
   const [attendence, setAttendence] = useState(false);
   const [dashboard, setDashboard] = useState(true);
   const [subjects, setSubjects] = useState(false);
+  const [sidenav, setSideNav] = useState(true);
+
   const teacher = true;
   return (
     <div className="teacherdashboard">
-      <SideNav
-        setAttendence={setAttendence}
-        setDashboard={setDashboard}
-        setSubjects={setSubjects}
-        teacher={teacher}
-      />
+      {sidenav && (
+        <SideNav
+          setAttendence={setAttendence}
+          setDashboard={setDashboard}
+          setSubjects={setSubjects}
+          teacher={teacher}
+          setSideNav={setSideNav}
+        />
+      )}
       <TeacherBodycomponent
         dashboard={dashboard}
         attendence={attendence}

@@ -14,7 +14,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faBackward } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
-const TeacherBodyComponent = ({ dashboard, attendence, subjects }) => {
+const TeacherBodyComponent = ({
+  dashboard,
+  attendence,
+  subjects,
+  setSideNav,
+}) => {
   return (
     <div className="teacherbodycontainer">
       {dashboard && (
@@ -28,8 +33,8 @@ const TeacherBodyComponent = ({ dashboard, attendence, subjects }) => {
         </div>
       )}
       {attendence && (
-        <div className="attendence-Container">
-          <Attendence />
+        <div className="attendence-Container" style={{ overflow: "hidden" }}>
+          <Attendence setSideNav={setSideNav} />
         </div>
       )}
       {subjects && (

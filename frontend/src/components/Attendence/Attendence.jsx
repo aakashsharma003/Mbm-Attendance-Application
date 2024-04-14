@@ -8,7 +8,8 @@ import "swiper/css/navigation";
 // import required modules
 import { EffectCards } from "swiper/modules";
 import { images } from "../../Constants";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Pagination, Navigation } from "swiper/modules";
 import "./Attendence.css";
 import { useState } from "react";
@@ -17,6 +18,34 @@ const Attendence = () => {
   return (
     <div className="t-attendence-container">
       <div className="t-attendence">
+        <div className="fa-box">
+          <button
+            style={{
+              border: "2px solid gray",
+              borderRadius: "10%",
+              width: "5%",
+              marginRight: "1%",
+              height: "100%",
+              textAlign: "center",
+              background: "white",
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faArrowRight}
+              style={{ width: "60%", height: "60%" }}
+            />
+          </button>
+          <input
+            style={{
+              border: "2px solid gray",
+              background: "white",
+              flexGrow: "1",
+              borderRadius: "12px",
+            }}
+            placeholder="Type to Search..."
+          ></input>
+        </div>
+
         <Swiper navigation={true} modules={[Pagination, Navigation]}>
           <SwiperSlide style={{ height: "100%" }}>
             <AttendProfile
