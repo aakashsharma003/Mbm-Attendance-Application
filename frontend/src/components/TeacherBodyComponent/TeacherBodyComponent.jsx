@@ -13,7 +13,6 @@ import { SubjectList } from "../SubjectList/SubjectList.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faBackward } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-
 const TeacherBodyComponent = ({
   dashboard,
   attendence,
@@ -21,6 +20,7 @@ const TeacherBodyComponent = ({
   setSideNav,
   sidenav,
 }) => {
+  const [attendPage, setAttendPage] = useState(true);
   return (
     <div className="teacherbodycontainer">
       {dashboard && (
@@ -35,7 +35,18 @@ const TeacherBodyComponent = ({
       )}
       {attendence && (
         <div className="attendence-Container" style={{ overflow: "hidden" }}>
-          <Attendence setSideNav={setSideNav} sidenav={sidenav} />
+          {attendPage && (
+            <SubjectList
+              editOrdelete={false}
+              setSideNav={setSideNav}
+              sidenav={sidenav}
+              attendPage={attendPage}
+              setAttendPage={setAttendPage}
+            />
+          )}
+          {!attendPage && (
+            <Attendence setSideNav={setSideNav} sidenav={sidenav} />
+          )}
         </div>
       )}
       {subjects && (
@@ -350,6 +361,7 @@ const Subject = () => {
               clicked={clicked}
               setClicked={setClicked}
               setInnerText={setInnerText}
+              editOrdelete={true}
             />
           </div>
         )}

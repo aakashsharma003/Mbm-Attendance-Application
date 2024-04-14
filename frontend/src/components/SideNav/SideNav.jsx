@@ -4,13 +4,7 @@ import log_out from "../../assets/logout.png";
 import { NavLink } from "react-router-dom";
 import subjectslogo from "/subjecticon.png";
 import "./SideNav.css";
-const SideNav = ({
-  setAttendence,
-  setDashboard,
-  setSubjects,
-  teacher,
-  setSideNav,
-}) => {
+const SideNav = ({ setAttendence, setDashboard, setSubjects, teacher }) => {
   return (
     <>
       <div className="sideNav">
@@ -33,7 +27,6 @@ const SideNav = ({
           <div
             className="sideNav-items"
             onClick={() => {
-              setSideNav(false);
               setAttendence(true);
               setDashboard(false);
               setSubjects(false);

@@ -17,7 +17,6 @@ const TeacherDashboard = () => {
           setDashboard={setDashboard}
           setSubjects={setSubjects}
           teacher={teacher}
-          setSideNav={setSideNav}
         />
       )}
       <TeacherBodycomponent

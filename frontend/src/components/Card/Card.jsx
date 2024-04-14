@@ -17,6 +17,11 @@ export default function ActionAreaCard({
   setUpdateForm,
   setSubjectId,
   setInnerText,
+  editOrdelete,
+  setSideNav,
+  sidenav,
+  attendPage,
+  setAttendPage,
 }) {
   const {
     subjectid,
@@ -52,7 +57,12 @@ export default function ActionAreaCard({
           image="/static/images/cards/contemplative-reptile.jpg"
           alt="green iguana"
         /> */}
-        <CardContent>
+        <CardContent
+          onClick={() => {
+            setSideNav(!sidenav);
+            setAttendPage(false);
+          }}
+        >
           {subjectname && (
             <Typography gutterBottom variant="h5" component="div">
               {subjectname}
@@ -83,40 +93,42 @@ export default function ActionAreaCard({
               {allotedTeacher}
             </Typography>
           )}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "flex-end",
-            }}
-          >
-            <FontAwesomeIcon
-              onClick={() => {
-                setUpdateForm(true);
-                editSubject(subjectid);
-              }}
-              icon={faPenToSquare}
+          {editOrdelete && (
+            <div
               style={{
-                marginRight: "3px",
-                height: "13%",
-                width: "13%",
-                color: "green",
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "flex-end",
               }}
-            />
-            <FontAwesomeIcon
-              onClick={() => {
-                if (
-                  confirm("Are sure you want delete this Subject ?") == true
-                ) {
-                  deleteSubject(subjectid);
-                } else {
-                  toast.error("delete Operation Cancelled..!!");
-                }
-              }}
-              icon={faTrash}
-              style={{ height: "10%", width: "10%", color: "red" }}
-            />
-          </div>
+            >
+              <FontAwesomeIcon
+                onClick={() => {
+                  setUpdateForm(true);
+                  editSubject(subjectid);
+                }}
+                icon={faPenToSquare}
+                style={{
+                  marginRight: "3px",
+                  height: "13%",
+                  width: "13%",
+                  color: "green",
+                }}
+              />
+              <FontAwesomeIcon
+                onClick={() => {
+                  if (
+                    confirm("Are sure you want delete this Subject ?") == true
+                  ) {
+                    deleteSubject(subjectid);
+                  } else {
+                    toast.error("delete Operation Cancelled..!!");
+                  }
+                }}
+                icon={faTrash}
+                style={{ height: "10%", width: "10%", color: "red" }}
+              />
+            </div>
+          )}
         </CardContent>
       </CardActionArea>
     </Card>

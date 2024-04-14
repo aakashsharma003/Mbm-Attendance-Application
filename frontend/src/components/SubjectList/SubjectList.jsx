@@ -9,6 +9,11 @@ export const SubjectList = ({
   clicked,
   setClicked,
   setInnerText,
+  editOrdelete,
+  setSideNav,
+  sidenav,
+  attendPage,
+  setAttendPage,
 }) => {
   const [subjects, setSubjects] = useState([]);
   const location = useLocation();
@@ -36,6 +41,11 @@ export const SubjectList = ({
             setUpdateForm={setUpdateForm}
             setSubjectId={setSubjectId}
             setInnerText={setInnerText}
+            editOrdelete={editOrdelete}
+            setSideNav={setSideNav}
+            sidenav={sidenav}
+            attendPage={attendPage}
+            setAttendPage={setAttendPage}
           />
         );
       })}
