@@ -1,12 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
-// import required modules
-import { EffectCards } from "swiper/modules";
 import { images } from "../../Constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -105,7 +100,7 @@ const AttendProfile = ({ name, subject, rollno, image }) => {
         src={image}
         alt=""
         className="p-15"
-        style={{ width: "50%", height: "60%", borderRadius: "50%" }}
+        style={{ width: "50%", height: "50%", borderRadius: "50%" }}
       />
       <div className="info-box">
         <div className="info-box-lines">
@@ -132,7 +127,7 @@ const AttendProfile = ({ name, subject, rollno, image }) => {
         <button
           className="attend-btn-p"
           onClick={() => {
-            bgcolor == "white" || bgcolor == "rgb(245, 85, 85)"
+            bgcolor == "white" || bgcolor == "rgb(250, 80, 80)"
               ? setbgcolor("rgb(142, 233, 142)")
               : setbgcolor("white");
           }}
@@ -143,7 +138,7 @@ const AttendProfile = ({ name, subject, rollno, image }) => {
           className="attend-btn-a"
           onClick={() => {
             bgcolor == "white" || bgcolor == "rgb(142, 233, 142)"
-              ? setbgcolor("rgb(245, 85, 85)")
+              ? setbgcolor("rgb(250, 80, 80)")
               : setbgcolor("white");
           }}
         >
