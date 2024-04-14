@@ -46,20 +46,23 @@
 .swiper {
   width: 70vw;
   height: 80vh;
+  border-radius: 12px;
 }
 
 .swiper-slide {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   border-radius: 18px;
   font-size: 22px;
   font-weight: bold;
+  background: white;
   color: #fff;
 }
 
 .swiper-slide:nth-child(1n) {
-  background-color: rgb(206, 17, 17);
+  background-color: red;
 }
 
 .swiper-slide:nth-child(2n) {
@@ -100,4 +103,44 @@
 img {
   width: 100%;
   height: 100%;
+}
+.info-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.info-box-lines {
+  display: flex;
+  font-size: 3dvh;
+  justify-content: space-between;
+  align-items: center;
+}
+.a-heading {
+  margin-right: 3%;
+  color: var(--dark);
+}
+.a-subheading {
+  color: gray;
+}
+.attend-btn-p,
+.attend-btn-a {
+  width: 50%;
+  padding: 2%;
+  border: none;
+  color: white;
+}
+.attend-btn-p {
+  border-bottom-left-radius: 12px;
+  background-color: rgb(41, 201, 41);
+}
+.attend-btn-a {
+  border-bottom-right-radius: 12px;
+  background-color: red;
+}
+@media (width <= 860px) {
+  .p-15 {
+    padding: 15% 0;
+  }
 }
