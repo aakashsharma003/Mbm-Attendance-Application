@@ -14,7 +14,7 @@ import { Pagination, Navigation } from "swiper/modules";
 import "./Attendence.css";
 import { useState } from "react";
 
-const Attendence = () => {
+const Attendence = ({ setSideNav, sidenav }) => {
   return (
     <div className="t-attendence-container">
       <div className="t-attendence">
@@ -28,6 +28,9 @@ const Attendence = () => {
               height: "100%",
               textAlign: "center",
               background: "white",
+            }}
+            onClick={() => {
+              sidenav ? setSideNav(false) : setSideNav(true);
             }}
           >
             <FontAwesomeIcon

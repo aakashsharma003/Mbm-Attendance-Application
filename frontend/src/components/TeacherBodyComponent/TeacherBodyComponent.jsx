@@ -19,6 +19,7 @@ const TeacherBodyComponent = ({
   attendence,
   subjects,
   setSideNav,
+  sidenav,
 }) => {
   return (
     <div className="teacherbodycontainer">
@@ -34,7 +35,7 @@ const TeacherBodyComponent = ({
       )}
       {attendence && (
         <div className="attendence-Container" style={{ overflow: "hidden" }}>
-          <Attendence setSideNav={setSideNav} />
+          <Attendence setSideNav={setSideNav} sidenav={sidenav} />
         </div>
       )}
       {subjects && (

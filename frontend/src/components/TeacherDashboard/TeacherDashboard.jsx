@@ -24,6 +24,8 @@ const TeacherDashboard = () => {
         dashboard={dashboard}
         attendence={attendence}
         subjects={subjects}
+        setSideNav={setSideNav}
+        sidenav={sidenav}
       />
     </div>
   );
