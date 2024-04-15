@@ -61,6 +61,7 @@ export default function ActionAreaCard({
           onClick={() => {
             setSideNav(!sidenav);
             setAttendPage(false);
+            setSubjectId(subjectid);
           }}
         >
           {subjectname && (

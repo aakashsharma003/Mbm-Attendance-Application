@@ -356,11 +356,42 @@ async function updateSubject(
     throw err;
   }
 }
+async function getSubject(subjectid) {
+  try {
+    const db = await connectToDatabase();
+    // console.log(teacherId[0]);
+    const query = "select * from subject where subjectid=?";
+    const result = await db.query(query, [subjectid]);
+
+    return result;
+  } catch (error) {
+    console.error("Error while getting subject from subjectId:", error);
+    throw error;
+  }
+}
+async function getAllStudents(semester, branch) {
+  try {
+    const db = await connectToDatabase();
+    // console.log(teacherId[0]);
+    const result = await db.query(
+      `
+      select * from student where semester = ? and branch = ?
+    `,
+      [semester, branch]
+    );
+
+    return result;
+  } catch (error) {
+    console.error("Error while getting all student for attendence:", error);
+    throw error;
+  }
+}
 
 export {
   insertData,
   insertTeacherData,
   getAllStudent,
+  getAllStudents,
   getAllTeacher,
   createSubjectTable,
   createAttendenceTable,
@@ -375,6 +406,7 @@ export {
   getStudentImage,
   getTeacherImage,
   getAllSubjects,
+  getSubject,
   deleteSubject,
   updateSubject,
 };

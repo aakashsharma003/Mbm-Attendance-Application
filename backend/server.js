@@ -8,9 +8,11 @@ import {
   createTeacherTable,
   deleteSubject,
   getAllStudent,
+  getAllStudents,
   getAllSubjects,
   getAllTeacher,
   getStudentImage,
+  getSubject,
   getTeacherImage,
   insertData,
   insertIntoSubject,
@@ -294,6 +296,41 @@ app.delete("/deleteSubject:id", (req, res, next) => {
     .catch((err) => {
       console.log(err);
       next("Pls try again after some time !");
+    });
+});
+app.get("/getstudents:id", (req, res, next) => {
+  const subjectid = req.params.id;
+  getSubject(subjectid)
+    .then((resp) => {
+      const {
+        subjectid,
+        subjectname,
+        subjectcode,
+        semester,
+        branch,
+        degree,
+        allotedTeacher,
+        year,
+      } = resp[0][0];
+      // console.log(semester, branch);
+      req.subjectname = subjectname;
+      return getAllStudents(semester, branch)
+        .then((resp) => {
+          // console.log(resp);
+          res.send({
+            subjectname: req.subjectname,
+            students: resp[0],
+            message: "All students fetched successfully..!",
+          });
+        })
+        .catch((err) => {
+          console.log("error occured while getting all students..!");
+          next(new Error("error occured while getting all students..!"));
+        });
+    })
+    .catch((err) => {
+      console.log("Error occured while getting subject ", err);
+      next(new Error("Our Server is Busy right Now!"));
     });
 });
 app.post("/teacher/editSubject", (req, res, next) => {

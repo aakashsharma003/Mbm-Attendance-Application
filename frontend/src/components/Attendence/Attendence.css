@@ -76,9 +76,10 @@ img {
   align-items: center;
 }
 .info-box-lines {
+  width: 70dvw;
   display: flex;
-  font-size: 3dvh;
-  justify-content: space-between;
+  font-size: 2dvh;
+  justify-content: center;
   align-items: center;
 }
 .a-heading {

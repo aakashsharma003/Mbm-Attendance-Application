@@ -21,6 +21,7 @@ const TeacherBodyComponent = ({
   sidenav,
 }) => {
   const [attendPage, setAttendPage] = useState(true);
+  const [subjectid, setSubjectId] = useState("");
   return (
     <div className="teacherbodycontainer">
       {dashboard && (
@@ -34,7 +35,7 @@ const TeacherBodyComponent = ({
         </div>
       )}
       {attendence && (
-        <div className="attendence-Container" style={{ overflow: "hidden" }}>
+        <div className="attendence-Container">
           {attendPage && (
             <SubjectList
               editOrdelete={false}
@@ -42,10 +43,16 @@ const TeacherBodyComponent = ({
               sidenav={sidenav}
               attendPage={attendPage}
               setAttendPage={setAttendPage}
+              subjectid={subjectid}
+              setSubjectId={setSubjectId}
             />
           )}
           {!attendPage && (
-            <Attendence setSideNav={setSideNav} sidenav={sidenav} />
+            <Attendence
+              setSideNav={setSideNav}
+              sidenav={sidenav}
+              subjectid={subjectid}
+            />
           )}
         </div>
       )}
