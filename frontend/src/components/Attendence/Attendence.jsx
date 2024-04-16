@@ -14,39 +14,79 @@ import toast from "react-hot-toast";
 import DefaultProfile from "/DefaultProfile.jpg";
 
 const Attendence = ({ setSideNav, sidenav, subjectid }) => {
-  const [students, setStudents] = useState([]);
   const [attendencedata, setAttendenceData] = useState([]);
+  // const [sid, setsid] = useState("");
   useEffect(() => {
     const fetchStudents = async () => {
       try {
         const res = await axios.get(`${server}/getstudents${subjectid}`);
         const subjectname = res.data.subjectname;
-        setStudents(res.data.students);
-        const newData = [];
-        for (let index = 0; index < attendencedata.length; index++) {
-          const { id, name, rollno, password, semester, branch, year, photo } =
-            attendencedata[index];
-          newData.push({
-            id,
-            name,
-            rollno,
-            password,
-            semester,
-            branch,
-            year,
-            photo,
-            subjectname,
-          });
-        }
+        const studentsData = res.data.students;
+        const newData = studentsData.map((student) => ({
+          ...student,
+          subjectid: subjectid,
+          ispresent: null, // Assuming ispresent should be initialized as false
+          subjectname,
+        }));
         setAttendenceData(newData);
         toast.success(res.data.message);
       } catch (err) {
         console.log(err);
-        toast.error(err.response.message);
+        toast.error(err.response?.data?.message || "Failed to fetch students");
       }
     };
-    fetchStudents();
-  }, []);
+    if (!localStorage.getItem(`subjectId_${subjectid}`)) {
+      fetchStudents();
+    } else {
+      try {
+        // toast.success("ha aya hu yha pr");
+        // const storedSubjectId = JSON.parse(
+        // localStorage.getItem("subjectId_${subjectid}")
+        // );
+        // setsid(storedSubjectId);
+        const storedData = JSON.parse(
+          localStorage.getItem(`subjectId_${subjectid}`)
+        );
+        setAttendenceData(storedData);
+      } catch (error) {
+        console.error("Error parsing local storage data:", error);
+      }
+    }
+  }, [subjectid]);
+  useEffect(() => {
+    const saveLocally = () => {
+      try {
+        localStorage.setItem(
+          "attendence-data-subjectId",
+          JSON.stringify(subjectid)
+        );
+        localStorage.setItem(
+          `subjectId_${subjectid}`,
+          JSON.stringify(attendencedata)
+        );
+      } catch (error) {
+        console.error("Error saving to local storage:", error);
+      }
+    };
+    if (attendencedata.length > 0) saveLocally();
+  }, [attendencedata]);
+  const submitHandle = async (data) => {
+    try {
+      const res = await axios.post(`${server}/commitAttendance`, {
+        data,
+      });
+      localStorage.removeItem(`subjectId_${subjectid}`);
+      toast.success(res.data.message);
+    } catch (err) {
+      console.error(err);
+      toast.error(err.response.data.message);
+    }
+  };
+  const handleAttendance = (index, isPresent) => {
+    const updatedData = [...attendencedata];
+    updatedData[index].ispresent = isPresent;
+    setAttendenceData(updatedData);
+  };
 
   const [mySwiper, setMySwiper] = useState({});
   return (
@@ -90,30 +130,62 @@ const Attendence = ({ setSideNav, sidenav, subjectid }) => {
           navigation={true}
           modules={[Pagination, Navigation]}
         >
-          {students.map((student) => {
-            {
-              return (
-                <SwiperSlide style={{ height: "100%" }}>
-                  <AttendProfile
-                    key={student.id}
-                    name={student.name}
-                    rollno={student.rollno}
-                    subject={student.subjectname}
-                    image={
-                      student.photo ? server + student.photo : DefaultProfile
-                    }
-                  />
-                </SwiperSlide>
-              );
-            }
-          })}
+          {attendencedata.length === 0 ? (
+            <NoDataFound />
+          ) : (
+            attendencedata.map((student, index) => {
+              {
+                return (
+                  <SwiperSlide style={{ height: "100%" }}>
+                    <AttendProfile
+                      key={student.id}
+                      name={student.name}
+                      subject={student.subjectname}
+                      rollno={student.rollno}
+                      image={
+                        student.photo ? server + student.photo : DefaultProfile
+                      }
+                      mySwiper={mySwiper}
+                      ispresent={student.ispresent}
+                      handleAttendance={(isPresent) =>
+                        handleAttendance(index, isPresent)
+                      }
+                    />
+                  </SwiperSlide>
+                );
+              }
+            })
+          )}
         </Swiper>
+        <button
+          style={{ background: "black", color: "white", cursor: "pointer" }}
+          onClick={() => {
+            submitHandle(attendencedata);
+          }}
+        >
+          Save
+        </button>
       </div>
     </div>
   );
 };
-const AttendProfile = ({ name, subject, rollno, image, mySwiper }) => {
+const AttendProfile = ({
+  name,
+  subject,
+  rollno,
+  image,
+  mySwiper,
+  ispresent,
+  handleAttendance,
+}) => {
   const [bgcolor, setbgcolor] = useState("white");
+  useEffect(() => {
+    ispresent == null
+      ? setbgcolor("white")
+      : ispresent == true
+      ? setbgcolor("rgb(142, 233, 142)")
+      : setbgcolor("rgb(250, 80, 80)");
+  }, []);
   return (
     <div
       style={{
@@ -158,6 +230,7 @@ const AttendProfile = ({ name, subject, rollno, image, mySwiper }) => {
           className="attend-btn-p"
           onClick={() => {
             setbgcolor("rgb(142, 233, 142)");
+            handleAttendance(true);
             mySwiper.slideNext();
           }}
         >
@@ -167,7 +240,7 @@ const AttendProfile = ({ name, subject, rollno, image, mySwiper }) => {
           className="attend-btn-a"
           onClick={() => {
             setbgcolor("rgb(250, 80, 80)");
-
+            handleAttendance(false);
             mySwiper.slideNext();
           }}
         >
@@ -177,63 +250,22 @@ const AttendProfile = ({ name, subject, rollno, image, mySwiper }) => {
     </div>
   );
 };
+const NoDataFound = () => {
+  return (
+    <div
+      style={{
+        background: "white",
+        fontSize: "3vh",
+        textAlign: "center",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "50dvh",
+      }}
+    >
+      No Student Found ? Pls Contact Support team..!!!
+    </div>
+  );
+};
 
 export default Attendence;
-
-// Import necessary modules and dependencies
-
-// const Attendence = ({ setSideNav, sidenav, subjectid }) => {
-//   const [students, setStudents] = useState([]);
-//   const [attendencedata, setAttendenceData] = useState([]);
-
-//   useEffect(() => {
-//     const fetchStudents = async () => {
-//       try {
-//         const res = await axios.get(`${server}/getstudents${subjectid}`);
-//         const subjectname = res.data.subjectname;
-//         const newAttendenceData = res.data.students.map(student => ({
-//           ...student,
-//           subjectname,
-//           ispresent: false,
-//         }));
-//         setStudents(res.data.students);
-//         setAttendenceData(newAttendenceData);
-//         toast.success(res.data.message);
-//       } catch (err) {
-//         console.error(err);
-//         toast.error(err.response.message || 'Failed to fetch students');
-//       }
-//     };
-
-//     fetchStudents();
-//   }, [subjectid]);
-
-//   const handleAttendance = (index, isPresent) => {
-//     const updatedData = [...attendencedata];
-//     updatedData[index].ispresent = isPresent;
-//     setAttendenceData(updatedData);
-//   };
-
-//   const [mySwiper, setMySwiper] = useState({});
-
-//   return (
-//     // Your JSX content
-//   );
-// };
-
-// const AttendProfile = ({
-//   name,
-//   subject,
-//   rollno,
-//   image,
-//   mySwiper,
-//   handleAttendance,
-// }) => {
-//   const [bgcolor, setbgcolor] = useState("white");
-
-//   return (
-//     // Your JSX content
-//   );
-// };
-
-// export default Attendence;

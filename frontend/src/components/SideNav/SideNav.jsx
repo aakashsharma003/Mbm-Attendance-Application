@@ -1,10 +1,11 @@
 import Dashboard_logo from "../../assets/dashboard-logo.png";
 import Attendence_logo from "../../assets/attendence-logo.png";
 import log_out from "../../assets/logout.png";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import subjectslogo from "/subjecticon.png";
 import "./SideNav.css";
 const SideNav = ({ setAttendence, setDashboard, setSubjects, teacher }) => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="sideNav">
@@ -57,7 +58,13 @@ const SideNav = ({ setAttendence, setDashboard, setSubjects, teacher }) => {
             </div>
           )}
 
-          <NavLink to="/login" className="sideNav-items">
+          <div
+            className="sideNav-items"
+            onClick={() => {
+              localStorage.clear();
+              navigate("/login");
+            }}
+          >
             <img
               src={log_out}
               alt="logout-logo"
@@ -74,7 +81,7 @@ const SideNav = ({ setAttendence, setDashboard, setSubjects, teacher }) => {
             >
               Logout
             </div>
-          </NavLink>
+          </div>
         </ul>
       </div>
     </>

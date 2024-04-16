@@ -2,7 +2,8 @@ import express, { response, urlencoded } from "express";
 import { engine } from "express-handlebars";
 import {
   connectToDatabase,
-  createAttendenceTable,
+  createAttendanceTable,
+  createRecordsTable,
   createStudentTable,
   createSubjectTable,
   createTeacherTable,
@@ -18,6 +19,7 @@ import {
   insertIntoSubject,
   insertIntoTeacher,
   insertTeacherData,
+  insertattendance,
   updateSubject,
   uploadStudentImage,
   uploadTeacherImage,
@@ -81,12 +83,19 @@ app.use(express.json());
 //     console.error("Error while creating subject table", err);
 //   });
 
-// createAttendenceTable()
+// createAttendanceTable()
 //   .then((res) => {
 //     console.log("Attendence table created successfully.!");
 //   })
 //   .catch((err) => {
 //     console.log("Error while creating attendence table", err);
+//   });
+// createRecordsTable()
+//   .then((res) => {
+//     console.log("Records table created successfully.!");
+//   })
+//   .catch((err) => {
+//     console.log("Error while creating records table", err);
 //   });
 
 app.use("/uploads", express.static("uploads"));
@@ -345,6 +354,19 @@ app.post("/teacher/editSubject", (req, res, next) => {
       next("Pls try again after some time !");
     });
 });
+
+app.post("/commitAttendance", (req, res, next) => {
+  const array = req.body.data;
+  insertattendance(array)
+    .then((resp) => {
+      res.send({ message: "All attendance saved successfully!!!" });
+    })
+    .catch((err) => {
+      console.log("error occured while inserting attendence data", err);
+      next(err);
+    });
+});
+
 // // Templating engine
 // app.engine("hbs", exphbs({ extname: ".hbs" }));
 // app.set("view engine", "hbs");

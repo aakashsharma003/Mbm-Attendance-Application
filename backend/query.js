@@ -90,31 +90,58 @@ async function createSubjectTable() {
     throw error;
   }
 }
-
-async function createAttendenceTable() {
+async function createRecordsTable() {
   try {
     const db = await connectToDatabase();
 
     const res = await db.query(`
-    CREATE TABLE IF NOT EXISTS subject (
-        subjectid VARCHAR(255) UNIQUE NOT NULL,
+    CREATE TABLE IF NOT EXISTS Records(
+        srno INT AUTO_INCREMENT PRIMARY KEY,
+        subjectid VARCHAR(255) NOT NULL,
         subjectname VARCHAR(255) NOT NULL,
-        studentname VARCHAR(255)  NOT NULL,
+        studentname VARCHAR(255) NOT NULL,
         photo VARCHAR(255),
-        total_attendence INT NOT NULL,
-        mark_attendence INT NOT NULL,
+        ispresent BOOLEAN NOT NULL, 
         year INT NOT NULL,
-      branch VARCHAR(255) NOT NULL,
-      semester VARCHAR(255) NOT NULL
+        branch VARCHAR(255) NOT NULL,
+        semester VARCHAR(255) NOT NULL,
+        time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       )
     `);
     console.log(res);
     return res;
   } catch (err) {
-    console.log("Error ocuured while creating attendence table..!", err);
+    console.log("Error occurred while creating records table!", err);
     throw err;
   }
 }
+async function createAttendanceTable() {
+  try {
+    const db = await connectToDatabase();
+
+    const res = await db.query(`
+    CREATE TABLE IF NOT EXISTS Attendance (
+        srno INT AUTO_INCREMENT PRIMARY KEY,
+        subjectid VARCHAR(255) NOT NULL,
+        subjectname VARCHAR(255) NOT NULL,
+        rollno VARCHAR(255) UNIQUE NOT NULL,
+        studentname VARCHAR(255) NOT NULL,
+        photo VARCHAR(255),
+        ispresent BOOLEAN NOT NULL, 
+        year INT NOT NULL,
+        branch VARCHAR(255) NOT NULL,
+        semester VARCHAR(255) NOT NULL,
+        time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      )
+    `);
+    console.log(res);
+    return res;
+  } catch (err) {
+    console.log("Error occurred while creating attendance table!", err);
+    throw err;
+  }
+}
+
 async function insertIntoTeacher(name, teacherId, password, department, photo) {
   try {
     const db = await connectToDatabase();
@@ -386,15 +413,125 @@ async function getAllStudents(semester, branch) {
     throw error;
   }
 }
+async function insertIntoAttendance(
+  subjectid,
+  subjectname,
+  rollno,
+  studentname,
+  photo,
+  ispresent,
+  year,
+  branch,
+  semester
+) {
+  try {
+    const db = await connectToDatabase();
 
+    const query =
+      "INSERT INTO attendance (subjectid, subjectname,rollno, studentname, photo, ispresent, year, branch, semester) VALUES (?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE ispresent=VALUES(ispresent)";
+    const res = await db.query(query, [
+      subjectid,
+      subjectname,
+      rollno,
+      studentname,
+      photo,
+      ispresent,
+      year,
+      branch,
+      semester,
+    ]);
+    return res;
+  } catch (err) {
+    console.error("Error while inserting or updating attendance table:", err);
+    throw err;
+  }
+}
+async function insertIntoRecords(
+  subjectid,
+  subjectname,
+  studentname,
+  photo,
+  ispresent,
+  year,
+  branch,
+  semester
+) {
+  try {
+    const db = await connectToDatabase();
+
+    const query =
+      "INSERT INTO records (subjectid, subjectname, studentname, photo, ispresent, year, branch, semester) VALUES (?,?,?,?,?,?,?,?)";
+    const res = await db.query(query, [
+      subjectid,
+      subjectname,
+      studentname,
+      photo,
+      ispresent,
+      year,
+      branch,
+      semester,
+    ]);
+    return res;
+  } catch (err) {
+    console.error("Error while inserting into Records table:", err);
+    throw err;
+  }
+}
+async function insertattendance(data) {
+  try {
+    for (let index = 0; index < data.length; index++) {
+      let {
+        branch,
+        ispresent,
+        name,
+        photo,
+        rollno,
+        semester,
+        subjectid,
+        subjectname,
+        year,
+      } = data[index];
+      await insertIntoAttendance(
+        subjectid,
+        subjectname,
+        rollno,
+        name,
+        photo,
+        ispresent,
+        year,
+        branch,
+        semester
+      );
+      await insertIntoRecords(
+        subjectid,
+        subjectname,
+        name,
+        photo,
+        ispresent,
+        year,
+        branch,
+        semester
+      );
+      console.log(`All attendance saved successfully`);
+    }
+    // return res;
+  } catch (err) {
+    console.error("Error while saving attendance:", err);
+    throw err;
+  }
+}
 export {
   insertData,
+  insertIntoRecords,
+  insertIntoAttendance,
+  insertattendance,
+  createRecordsTable,
   insertTeacherData,
   getAllStudent,
   getAllStudents,
   getAllTeacher,
   createSubjectTable,
-  createAttendenceTable,
+  createAttendanceTable,
   insertIntoSubject,
   insertIntoStudent,
   insertIntoTeacher,
