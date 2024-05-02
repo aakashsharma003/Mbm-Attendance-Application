@@ -3,6 +3,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { images } from "../../Constants";
+import { TextField } from "@mui/material";
+import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Pagination, Navigation } from "swiper/modules";
@@ -12,8 +14,15 @@ import axios from "axios";
 import { server } from "../../main";
 import toast from "react-hot-toast";
 import DefaultProfile from "/DefaultProfile.jpg";
-
-const Attendence = ({ setSideNav, sidenav, subjectid }) => {
+import Button from "@mui/material/Button";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+const Attendence = ({
+  setSubjects,
+  setAttendPage,
+  setSideNav,
+  sidenav,
+  subjectid,
+}) => {
   const [attendencedata, setAttendenceData] = useState([]);
   // const [sid, setsid] = useState("");
   useEffect(() => {
@@ -23,10 +32,12 @@ const Attendence = ({ setSideNav, sidenav, subjectid }) => {
         const subjectname = res.data.subjectname;
         const studentsData = res.data.students;
         const newData = studentsData.map((student) => ({
-          ...student,
+          studentid: student.rollno,
           subjectid: subjectid,
+          studentname: student.name,
+          photo: student.photo,
           ispresent: null, // Assuming ispresent should be initialized as false
-          subjectname,
+          subjectname: subjectname,
         }));
         setAttendenceData(newData);
         toast.success(res.data.message);
@@ -76,7 +87,8 @@ const Attendence = ({ setSideNav, sidenav, subjectid }) => {
         data,
       });
       localStorage.removeItem(`subjectId_${subjectid}`);
-      toast.success(res.data.message);
+      setSideNav(true);
+      setAttendPage(true);
     } catch (err) {
       console.error(err);
       toast.error(err.response.data.message);
@@ -93,34 +105,40 @@ const Attendence = ({ setSideNav, sidenav, subjectid }) => {
     <div className="t-attendence-container">
       <div className="t-attendence">
         <div className="fa-box">
-          <button
-            style={{
-              border: "2px solid gray",
-              borderRadius: "10%",
-              width: "5%",
-              marginRight: "1%",
+          <ArrowBackIcon
+            sx={{
+              width: "40px",
               height: "100%",
-              textAlign: "center",
-              background: "white",
+              bgcolor: "white",
+              border: "2px solid gray",
+              marginRight: "1%",
+              borderRadius: "4px",
+            }}
+            onClick={() => {
+              setSideNav(true);
+              setAttendPage(true);
+            }}
+          />
+          <FullscreenIcon
+            sx={{
+              width: "50px",
+              height: "100%",
+              bgcolor: "white",
+              border: "2px solid gray",
+              marginRight: "1%",
+              borderRadius: "4px",
             }}
             onClick={() => {
               sidenav ? setSideNav(false) : setSideNav(true);
             }}
-          >
-            <FontAwesomeIcon
-              icon={faArrowRight}
-              style={{ width: "60%", height: "60%" }}
-            />
-          </button>
-          <input
-            style={{
-              border: "2px solid gray",
-              background: "white",
-              flexGrow: "1",
-              borderRadius: "12px",
-            }}
-            placeholder="Type to Search..."
-          ></input>
+          />
+
+          <TextField
+            sx={{ width: "100%" }}
+            id="outlined-basic"
+            label="Search"
+            variant="outlined"
+          />
         </div>
 
         <Swiper
@@ -138,10 +156,10 @@ const Attendence = ({ setSideNav, sidenav, subjectid }) => {
                 return (
                   <SwiperSlide style={{ height: "100%" }}>
                     <AttendProfile
-                      key={student.id}
-                      name={student.name}
+                      key={student.studentid}
+                      name={student.studentname}
                       subject={student.subjectname}
-                      rollno={student.rollno}
+                      rollno={student.studentid}
                       image={
                         student.photo ? server + student.photo : DefaultProfile
                       }
@@ -157,14 +175,15 @@ const Attendence = ({ setSideNav, sidenav, subjectid }) => {
             })
           )}
         </Swiper>
-        <button
-          style={{ background: "black", color: "white", cursor: "pointer" }}
+        <Button
+          variant="contained"
+          sx={{ width: "78%", margin: "2%" }}
           onClick={() => {
             submitHandle(attendencedata);
           }}
         >
           Save
-        </button>
+        </Button>
       </div>
     </div>
   );

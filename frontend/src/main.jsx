@@ -2,8 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
+// "http://localhost:8000"
 export const server =
-  "https://anticipated-responded-inexpensive-modes.trycloudflare.com";
+  "https://departure-amount-scored-milwaukee.trycloudflare.com";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />

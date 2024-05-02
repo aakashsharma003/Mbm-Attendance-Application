@@ -13,7 +13,10 @@ import { SubjectList } from "../SubjectList/SubjectList.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faBackward } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import CustomPaginationActionsTable from "../AttendanceList/AttendanceList.jsx";
 const TeacherBodyComponent = ({
+  setSubjects,
+  setAttendence,
   dashboard,
   attendence,
   subjects,
@@ -22,6 +25,7 @@ const TeacherBodyComponent = ({
 }) => {
   const [attendPage, setAttendPage] = useState(true);
   const [subjectid, setSubjectId] = useState("");
+  const [viewAttendance, setViewAttendance] = useState(false);
   return (
     <div className="teacherbodycontainer">
       {dashboard && (
@@ -45,15 +49,20 @@ const TeacherBodyComponent = ({
               setAttendPage={setAttendPage}
               subjectid={subjectid}
               setSubjectId={setSubjectId}
+              setViewAttendance={setViewAttendance}
             />
           )}
-          {!attendPage && (
+          {!attendPage && !viewAttendance && (
             <Attendence
+              setSubjects={setSubjects}
+              setAttendPage={setAttendPage}
               setSideNav={setSideNav}
               sidenav={sidenav}
               subjectid={subjectid}
+              setAttendence={setAttendence}
             />
           )}
+          {viewAttendance && <CustomPaginationActionsTable />}
         </div>
       )}
       {subjects && (

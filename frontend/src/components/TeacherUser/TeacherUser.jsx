@@ -5,6 +5,7 @@ import { InputBox } from "../InputBox/InputBox";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { server } from "../../main";
+import { TextField, Button } from "@mui/material";
 const TeacherUser = () => {
   const [teacherId, setTeacherId] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +31,7 @@ const TeacherUser = () => {
   return (
     <form style={{ width: "100%" }} onSubmit={handleSubmit}>
       <div className="lower-box">
-        <InputBox
+        <TextField
           label="Username"
           placeholder="Email"
           type="text"
@@ -40,7 +41,7 @@ const TeacherUser = () => {
           required={"required"}
         />
 
-        <InputBox
+        <TextField
           label="Password"
           placeholder="Password"
           type="password"
@@ -50,7 +51,21 @@ const TeacherUser = () => {
           required={"required"}
         />
 
-        <button className="login-btn btn">Login</button>
+        <Button
+          sx={{
+            bgcolor: "#19263f",
+            color: "#f8f7f6",
+            textAlign: "center",
+            width: "100%",
+            fontSize: "3vh",
+            border: "1px solid gray",
+            textDecoration: "none",
+            transition: "all",
+          }}
+          type="submit"
+        >
+          Login
+        </Button>
       </div>
     </form>
   );

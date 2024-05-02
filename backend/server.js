@@ -12,6 +12,7 @@ import {
   getAllStudents,
   getAllSubjects,
   getAllTeacher,
+  getAttendance,
   getStudentImage,
   getSubject,
   getTeacherImage,
@@ -83,14 +84,14 @@ app.use(express.json());
 //     console.error("Error while creating subject table", err);
 //   });
 
-// createAttendanceTable()
-//   .then((res) => {
-//     console.log("Attendence table created successfully.!");
-//   })
-//   .catch((err) => {
-//     console.log("Error while creating attendence table", err);
-//   });
-// createRecordsTable()
+createAttendanceTable()
+  .then((res) => {
+    console.log("Attendence table created successfully.!");
+  })
+  .catch((err) => {
+    console.log("Error while creating attendence table", err);
+  });
+// // createRecordsTable()
 //   .then((res) => {
 //     console.log("Records table created successfully.!");
 //   })
@@ -365,6 +366,17 @@ app.post("/commitAttendance", (req, res, next) => {
       console.log("error occured while inserting attendence data", err);
       next(err);
     });
+});
+
+app.post("/attendance", (req, res) => {
+  const { subjectId, date } = req.body;
+  getAttendance(subjectId, date)
+    .then((resp) => {
+      console.log(resp[0]);
+      console.log("attendance got successfully..!!");
+      res.send({ list: resp[0], msg: "success" });
+    })
+    .catch((err) => console.log("error occured while getting"));
 });
 
 // // Templating engine

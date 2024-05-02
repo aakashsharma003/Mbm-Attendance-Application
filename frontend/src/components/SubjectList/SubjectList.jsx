@@ -14,6 +14,7 @@ export const SubjectList = ({
   sidenav,
   attendPage,
   setAttendPage,
+  setViewAttendance,
 }) => {
   const [subjects, setSubjects] = useState([]);
   const location = useLocation();
@@ -46,6 +47,7 @@ export const SubjectList = ({
             sidenav={sidenav}
             attendPage={attendPage}
             setAttendPage={setAttendPage}
+            setlist={setViewAttendance}
           />
         );
       })}

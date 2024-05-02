@@ -20,6 +20,8 @@ const TeacherDashboard = () => {
         />
       )}
       <TeacherBodycomponent
+        setSubjects={setSubjects}
+        setAttendence={setAttendence}
         dashboard={dashboard}
         attendence={attendence}
         subjects={subjects}

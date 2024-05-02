@@ -9,6 +9,8 @@ import { CardActionArea } from "@mui/material";
 import axios from "axios";
 import { server } from "../../main";
 import toast from "react-hot-toast";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 export default function ActionAreaCard({
   Obj,
@@ -22,7 +24,9 @@ export default function ActionAreaCard({
   sidenav,
   attendPage,
   setAttendPage,
+  setlist,
 }) {
+  const viewAttendence = true;
   const {
     subjectid,
     subjectname,
@@ -94,6 +98,29 @@ export default function ActionAreaCard({
               {allotedTeacher}
             </Typography>
           )}
+          {viewAttendence && (
+            <div
+              className="hover-gray"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "0.5rem",
+                border: "2px solid gray",
+                borderRadius: "4px",
+              }}
+              onClick={() => {
+                setAttendPage(false);
+                setlist(true);
+              }}
+            >
+              <VisibilityIcon />
+              <Typography variant="button" marginLeft={"2%"}>
+                View Attendance
+              </Typography>
+            </div>
+          )}
+
           {editOrdelete && (
             <div
               style={{
