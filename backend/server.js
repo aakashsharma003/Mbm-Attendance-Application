@@ -372,7 +372,7 @@ app.post("/attendance", (req, res) => {
   const { subjectId, date } = req.body;
   getAttendance(subjectId, date)
     .then((resp) => {
-      console.log(resp[0]);
+      // console.log(resp[0]);
       console.log("attendance got successfully..!!");
       res.send({ list: resp[0], msg: "success" });
     })
