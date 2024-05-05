@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 // "http://localhost:8000"
 export const server =
-  "https://racial-crawford-residential-tension.trycloudflare.com";
+  "https://promise-float-alternate-rebound.trycloudflare.com";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />

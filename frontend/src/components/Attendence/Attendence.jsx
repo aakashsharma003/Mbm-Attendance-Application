@@ -5,8 +5,6 @@ import "swiper/css/navigation";
 import { images } from "../../Constants";
 import { TextField } from "@mui/material";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Pagination, Navigation } from "swiper/modules";
 import "./Attendence.css";
 import { useEffect, useState } from "react";
