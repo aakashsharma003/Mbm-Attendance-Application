@@ -51,6 +51,9 @@ const StudentUser = () => {
 
         <Button
           sx={{
+            "&:hover": {
+              bgcolor: "#253657",
+            },
             bgcolor: "#19263f",
             color: "#f8f7f6",
             textAlign: "center",
