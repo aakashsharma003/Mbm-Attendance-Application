@@ -92,7 +92,7 @@ function createData(student_id, student_name, status) {
   return { student_id, student_name, status };
 }
 
-export default function CustomPaginationActionsTable() {
+export default function CustomPaginationActionsTable({ from, to }) {
   const [page, setPage] = React.useState(0);
   const [rows, setRows] = React.useState([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -101,13 +101,14 @@ export default function CustomPaginationActionsTable() {
     const getlist = async () => {
       const res = await axios.post(`${server}/attendance`, {
         subjectId: "GkHHfDeAXtnHXKu9",
-        date: "2024-05-02",
+        from,
+        to,
       });
       const row = res.data.list.map((obj) => {
         const student_id = obj.student_id;
-        const student_name = obj.student_name;
-        const status = obj.status;
-        return createData(student_id, student_name, status);
+        const student_name = obj.total_present;
+        const total_lectures = obj.total_lectures;
+        return createData(student_id, student_name, total_lectures);
       });
 
       setRows(row);
@@ -136,8 +137,8 @@ export default function CustomPaginationActionsTable() {
         <TableHead>
           <TableRow>
             <TableCell>Student ID</TableCell>
-            <TableCell>Student Name</TableCell>
-            <TableCell>Status</TableCell>
+            <TableCell>Present</TableCell>
+            <TableCell>Lectures</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

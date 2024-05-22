@@ -316,9 +316,15 @@ async function getStudentImage(rollno) {
 async function getAllSubjects(teacherId) {
   try {
     const db = await connectToDatabase();
-    const sqlQuery = "select * from subject where allottedTeacher = ?";
-    const res = await db.query(sqlQuery, [teacherId]);
-    return res;
+    if (teacherId.length == 0) {
+      const sqlQuery = "select * from subject";
+      const res = await db.query(sqlQuery, [teacherId]);
+      return res;
+    } else {
+      const sqlQuery = "select * from subject where allottedTeacher = ?";
+      const res = await db.query(sqlQuery, [teacherId]);
+      return res;
+    }
   } catch (err) {
     console.error(
       "Error while getting all subjects with given teacherid:",
@@ -476,16 +482,52 @@ async function insertattendance(data) {
     throw err;
   }
 }
-async function getAttendance(subjectId, date) {
+async function getAttendance(subjectId, from, to) {
   try {
     const db = await connectToDatabase();
-    const query =
-      "select * from attendance where subject_id = ? and attendance_date = ?";
-    const res = await db.query(query, [subjectId, date]);
-    return res;
+    const query = `SELECT 
+    student_id, 
+    SUM(CASE WHEN status = 'Present' THEN 1 ELSE 0 END) AS total_present, 
+    SUM(CASE WHEN status = 'Absent' THEN 1 ELSE 0 END) AS total_absent, 
+    COUNT(*) AS total_lectures 
+FROM 
+    attendance 
+WHERE 
+    subject_id = ? 
+    AND attendance_date >= ? 
+    AND attendance_date <= ? 
+GROUP BY 
+    student_id
+`;
+    const res = await db.query(query, [subjectId, "2024-05-02", "2024-05-20"]);
+    console.log(res);
+    return res[0];
   } catch (err) {
     console.error("Error while getting attendance:", err);
     throw err;
+  }
+}
+async function viewAttendence(subjectid) {
+  try {
+    const db = await connectToDatabase();
+    //total_present
+    // console.log(studentid);
+    const query = `SELECT 
+    student_id,
+    SUM(CASE WHEN status = 'Present' THEN 1 ELSE 0 END) AS total_present,
+    SUM(CASE WHEN status = 'Absent' THEN 1 ELSE 0 END) AS total_absent,
+    COUNT(*) AS total_lectures
+FROM attendance
+WHERE subject_id = ?
+GROUP BY student_id
+`;
+    // const query2 =
+    //   "select count(status) as total from attendance where subject_id=?";
+    const res = await db.query(query, [subjectid]);
+    // console.log(res);
+    return res[0];
+  } catch (err) {
+    console.error("Error while viewing Attendence:", err);
   }
 }
 export {
@@ -515,4 +557,5 @@ export {
   getSubject,
   deleteSubject,
   updateSubject,
+  viewAttendence,
 };

@@ -15,7 +15,9 @@ const SideNav = ({ setAttendence, setDashboard, setSubjects, teacher }) => {
             onClick={() => {
               setDashboard(true);
               setAttendence(false);
-              setSubjects(false);
+              {
+                setSubjects && setSubjects(false);
+              }
             }}
           >
             <img
@@ -30,7 +32,9 @@ const SideNav = ({ setAttendence, setDashboard, setSubjects, teacher }) => {
             onClick={() => {
               setAttendence(true);
               setDashboard(false);
-              setSubjects(false);
+              {
+                setSubjects && setSubjects(false);
+              }
             }}
           >
             <img

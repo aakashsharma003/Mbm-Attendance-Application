@@ -5,6 +5,7 @@ import { InputBox } from "../InputBox/InputBox.jsx";
 import { useLocation } from "react-router-dom";
 import { Profile } from "../Profile/Profile.jsx";
 import axios from "axios";
+import Calender from "../Calender/Calender.jsx";
 import { server } from "../../main";
 import toast from "react-hot-toast";
 import { RenderImage } from "../RenderImage/RenderImage.jsx";
@@ -50,6 +51,7 @@ const TeacherBodyComponent = ({
               subjectid={subjectid}
               setSubjectId={setSubjectId}
               setViewAttendance={setViewAttendance}
+              view={true}
             />
           )}
           {!attendPage && !viewAttendance && (
@@ -62,7 +64,7 @@ const TeacherBodyComponent = ({
               setAttendence={setAttendence}
             />
           )}
-          {viewAttendance && <CustomPaginationActionsTable />}
+          {viewAttendance && <Calender />}
         </div>
       )}
       {subjects && (
@@ -378,6 +380,7 @@ const Subject = () => {
               setClicked={setClicked}
               setInnerText={setInnerText}
               editOrdelete={true}
+              view={false}
             />
           </div>
         )}

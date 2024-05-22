@@ -24,6 +24,7 @@ import {
   updateSubject,
   uploadStudentImage,
   uploadTeacherImage,
+  viewAttendence,
 } from "./query.js";
 import "dotenv/config";
 import { error } from "console";
@@ -194,6 +195,7 @@ app.post("/student", (req, res, next) => {
       if (response[0].length == 0) throw new Error("Student not found");
       const { id, name, rollno, password, semester, branch, year, photo } =
         response[0][0];
+      // console.log(response[0][0]);
       res.json({
         id,
         rollno,
@@ -369,14 +371,38 @@ app.post("/commitAttendance", (req, res, next) => {
 });
 
 app.post("/attendance", (req, res) => {
-  const { subjectId, date } = req.body;
-  getAttendance(subjectId, date)
+  const { subjectId, from, to } = req.body;
+  getAttendance(subjectId, from, to)
     .then((resp) => {
       // console.log(resp[0]);
       console.log("attendance got successfully..!!");
-      res.send({ list: resp[0], msg: "success" });
+      res.send({ list: resp, msg: "success" });
     })
     .catch((err) => console.log("error occured while getting"));
+});
+app.get("/getattendance", (req, res) => {
+  // Extracting headers
+  const { branch, semester, studentid, subjectid } = req.headers;
+  console.log(branch, semester, studentid, subjectid);
+  // Ensure subjectId and studentid are provided
+  // if (!SubjectId || !Studentid) {
+  //   return res
+  //     .status(400)
+  //     .json({ error: "subjectId and studentid are required in headers" });
+  // }
+
+  // Assuming viewAttendance is a function that returns a promise
+  viewAttendence(subjectid)
+    .then((resp) => {
+      // Filtering response to get attendance of specific student
+      // console.log(resp);
+      const filteredResp = resp.filter((obj) => obj.student_id === studentid);
+      res.status(200).json(filteredResp);
+    })
+    .catch((err) => {
+      console.error("Error occurred while getting attendance:", err);
+      res.status(500).json({ error: "Internal server error" });
+    });
 });
 
 // // Templating engine

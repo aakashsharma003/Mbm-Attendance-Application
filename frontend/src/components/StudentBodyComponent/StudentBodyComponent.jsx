@@ -2,6 +2,7 @@ import "./StudentBodyComponent.css";
 import { Profile } from "../Profile/Profile";
 import { RenderImage } from "../RenderImage/RenderImage";
 import ActionAreaCard from "../Card/Card";
+import { SubjectList } from "../SubjectList/SubjectList";
 const StudentBodyComponent = ({ dashboard, attendence }) => {
   return (
     <div className="studentbodycontainer">
@@ -20,7 +21,7 @@ const StudentBodyComponent = ({ dashboard, attendence }) => {
           <div className="attendence">
             <div className="attend-heading">Attendence</div>
             <div className="attendsub-heading">Attendence</div>
-            <ActionAreaCard />
+            <SubjectList editOrdelete={false} />
           </div>
         </div>
       )}

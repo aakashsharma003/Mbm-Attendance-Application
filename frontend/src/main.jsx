@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 // "http://localhost:8000"
 export const server =
-  "https://complications-million-differently-partners.trycloudflare.com";
+  "https://takes-package-experiences-relative.trycloudflare.com";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />

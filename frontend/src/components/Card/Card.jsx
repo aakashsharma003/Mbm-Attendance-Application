@@ -25,9 +25,9 @@ export default function ActionAreaCard({
   attendPage,
   setAttendPage,
   setlist,
+  view,
 }) {
-  const viewAttendence = true;
-  const {
+  let {
     subjectid,
     subjectname,
     subjectcode,
@@ -93,12 +93,27 @@ export default function ActionAreaCard({
               {degree}
             </Typography>
           )}
+          {Obj.present && (
+            <Typography variant="body2" color="text.secondary">
+              {Obj.present}
+            </Typography>
+          )}
+          {Obj.absent && (
+            <Typography variant="body2" color="text.secondary">
+              {Obj.absent}
+            </Typography>
+          )}
+          {Obj.total && (
+            <Typography variant="body2" color="text.secondary">
+              {Obj.total}
+            </Typography>
+          )}
           {allotedTeacher && (
             <Typography variant="body2" color="text.secondary">
               {allotedTeacher}
             </Typography>
           )}
-          {viewAttendence && (
+          {view && (
             <div
               className="hover-gray"
               style={{
