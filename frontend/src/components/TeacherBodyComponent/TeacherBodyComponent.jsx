@@ -64,7 +64,7 @@ const TeacherBodyComponent = ({
               setAttendence={setAttendence}
             />
           )}
-          {viewAttendance && <Calender />}
+          {viewAttendance && <Calender subjectId={subjectid} />}
         </div>
       )}
       {subjects && (

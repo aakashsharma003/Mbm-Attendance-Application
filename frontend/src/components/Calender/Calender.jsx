@@ -17,7 +17,7 @@ import "./Calender.css";
 import Attendence from "../Attendence/Attendence";
 import CustomPaginationActionsTable from "../AttendanceList/AttendanceList";
 
-export default function ResponsiveDateRangePickers() {
+export default function ResponsiveDateRangePickers({ subjectId }) {
   const [selectedDateRange, setSelectedDateRange] = useState([
     dayjs("2022-04-17"),
     dayjs("2022-04-21"),
@@ -48,6 +48,9 @@ export default function ResponsiveDateRangePickers() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <Button variant="contained" sx={{ margin: "1rem 0 0.5rem 1rem " }}>
+        Back to home Page
+      </Button>
       <DemoContainer
         components={[
           "DateRangePicker",
@@ -55,6 +58,7 @@ export default function ResponsiveDateRangePickers() {
           "DesktopDateRangePicker",
           "StaticDateRangePicker",
         ]}
+        sx={{ padding: "1rem" }}
       >
         <DemoItem label="" component="StaticDateRangePicker">
           <StaticDateRangePicker
@@ -67,12 +71,10 @@ export default function ResponsiveDateRangePickers() {
               [`.${pickersLayoutClasses.contentWrapper}`]: {
                 alignItems: "center",
               },
-              height: "100%",
             }}
           />
         </DemoItem>
       </DemoContainer>
-
       {/* Dialog Component */}
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle>Date Range Selected</DialogTitle>
@@ -84,6 +86,7 @@ export default function ResponsiveDateRangePickers() {
             <CustomPaginationActionsTable
               from={selectedDateRange[0]}
               to={selectedDateRange[1]}
+              subjectId={subjectId}
             />
           </DialogContentText>
         </DialogContent>

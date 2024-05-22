@@ -92,7 +92,7 @@ function createData(student_id, student_name, status) {
   return { student_id, student_name, status };
 }
 
-export default function CustomPaginationActionsTable({ from, to }) {
+export default function CustomPaginationActionsTable({ from, to, subjectId }) {
   const [page, setPage] = React.useState(0);
   const [rows, setRows] = React.useState([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -100,7 +100,7 @@ export default function CustomPaginationActionsTable({ from, to }) {
   React.useEffect(() => {
     const getlist = async () => {
       const res = await axios.post(`${server}/attendance`, {
-        subjectId: "GkHHfDeAXtnHXKu9",
+        subjectId: subjectId.length > 0 ? subjectId : "GkHHfDeAXtnHXKu9",
         from,
         to,
       });
