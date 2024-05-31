@@ -5,6 +5,7 @@ import { TeacherDashboard } from "./pages/TeacherDashboard";
 import "./App.css";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Toaster } from "react-hot-toast";
+import Footer from "./components/Footer/Footer";
 const App = () => {
   return (
     <>
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
         </Routes>
         <Toaster />
+        <Footer />
       </BrowserRouter>
     </>
   );
