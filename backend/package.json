@@ -2,7 +2,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "npm run docker:up && npm run dev",
+    "start": "npm run docker:up && npm run dev && node server.js",
     "docker:up": "docker-compose up -d && npm run wait-for-app",
     "wait-for-app": "node -e \"setTimeout(() => console.log('Application is ready'), 10000)\""
   },

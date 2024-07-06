@@ -1,0 +1,45 @@
+version: "3.8"
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql-db
+    environment:
+      - PORT=8000
+      - DB_HOST=mysql-db
+      - DB_USERNAME=root1
+      - DB_DBNAME=mydatabase
+      - DB_PASSWORD=1234
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3001:3000"
+    depends_on:
+      - backend
+
+  mysql-db:
+    image: mysql:latest
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: your_root_password
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: root1
+      MYSQL_PASSWORD: 1234
+    ports:
+      - "33011:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    ports:
+      - "33012:80"
+    environment:
+      PMA_HOST: mysql-db
+      MYSQL_ROOT_PASSWORD: your_root_password
+    depends_on:
+      - mysql-db
