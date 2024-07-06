@@ -3,16 +3,20 @@ services:
   backend:
     build: ./backend
     ports:
-      - "3000:3000"
+      - "8000:8000"
     depends_on:
       - mysql-db
     environment:
-      - DATABASE_URL=mysql://root1:1234@mysql-db:3306/mydatabase
+      - PORT=8000
+      - DB_HOST=mysql-db
+      - DB_USERNAME=root1
+      - DB_DBNAME=mydatabase
+      - DB_PASSWORD=1234
 
   frontend:
     build: ./frontend
     ports:
-      - "80:80"
+      - "3001:3000"
     depends_on:
       - backend
 
