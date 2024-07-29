@@ -86,7 +86,7 @@ const Subject = () => {
   const [degree, setDegree] = useState("B.E");
   const [semOptions, setSemOptions] = useState([]);
   const [subjectid, setSubjectId] = useState("");
-  const allotedTeacher = location.state.data.teacherId;
+  const allotedTeacher = location.state.data.teacherid;
   const [clicked, setClicked] = useState(true);
   const date = new Date();
   const [innerText, setInnerText] = useState("Create");
