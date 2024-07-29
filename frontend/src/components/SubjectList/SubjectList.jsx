@@ -25,7 +25,7 @@ export const SubjectList = ({
   const location = useLocation();
   const data = location.state.data;
 
-  const teacherid = data.teacherId ? data.teacherId : "";
+  const teacherid = data.teacherid ? data.teacherid : "";
   const studentid = data.rollno;
   const branch = data.branch;
   const semester = data.semester;
