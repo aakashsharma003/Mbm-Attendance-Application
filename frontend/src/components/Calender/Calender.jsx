@@ -19,8 +19,8 @@ import CustomPaginationActionsTable from "../AttendanceList/AttendanceList";
 
 export default function ResponsiveDateRangePickers({ subjectId }) {
   const [selectedDateRange, setSelectedDateRange] = useState([
-    dayjs("2022-04-17"),
-    dayjs("2022-04-21"),
+    dayjs("2024-04-17"),
+    dayjs("2025-12-21"),
   ]);
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -66,7 +66,7 @@ export default function ResponsiveDateRangePickers({ subjectId }) {
             value={selectedDateRange}
             onCancel={(event, reason) => handleCancel(reason)}
             onChange={handleDateRangeChange}
-            defaultValue={[dayjs("2022-04-17"), dayjs("2022-04-21")]}
+            defaultValue={[dayjs("2024-07-21"), dayjs("2025-12-21")]}
             sx={{
               [`.${pickersLayoutClasses.contentWrapper}`]: {
                 alignItems: "center",
