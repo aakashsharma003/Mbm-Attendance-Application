@@ -79,3 +79,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 * For development mode specific instructions (e.g., compiling assets, starting a development server), refer to the project documentation (if available).
 * Deployment instructions can be added if the application is designed to be deployed on a server.
 * Consider adding screenshots showcasing the application's functionalities.
+
+## Repo Activity
+![MBM Attendance Web](https://repobeats.axiom.co/api/embed/c7199f890be439dac5e83b1b1d16d7ec7f139c8b.svg "Repobeats analytics image")
